@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Wyszukiwarka</class>
+ <widget class="QDialog" name="Wyszukiwarka">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>375</width>
+    <height>240</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Find Items</string>
+  </property>
+  <widget class="QPushButton" name="przyciskWyszukiwarka">
+   <property name="geometry">
+    <rect>
+     <x>270</x>
+     <y>10</y>
+     <width>75</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Szukaj</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="txtValue">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>10</y>
+     <width>201</width>
+     <height>20</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QGroupBox" name="groupBox">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>30</y>
+     <width>321</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="title">
+    <string>Wybierz kryterium szukania</string>
+   </property>
+   <widget class="QRadioButton" name="rdoName">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>20</y>
+      <width>61</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Nazwa</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="rdoId">
+    <property name="geometry">
+     <rect>
+      <x>80</x>
+      <y>20</y>
+      <width>61</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Id</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QTableView" name="tabelka">
+   <property name="geometry">
+    <rect>
+     <x>20</x>
+     <y>90</y>
+     <width>321</width>
+     <height>141</height>
+    </rect>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
