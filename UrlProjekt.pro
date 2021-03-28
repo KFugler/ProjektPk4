@@ -27,6 +27,7 @@ CONFIG += c++11
 SOURCES += \
     BazaDanych.cpp \
     DodajStrone.cpp \
+    DostepneStrony.cpp \
     Wyszukiwarka.cpp \
         main.cpp \
         mainwindow.cpp
@@ -34,11 +35,13 @@ SOURCES += \
 HEADERS += \
     BazaDanych.h \
     DodajStrone.h \
+    DostepneStrony.h \
     Wyszukiwarka.h \
         mainwindow.h
 
 FORMS += \
     DodajStrone.ui \
+    DostepneStrony.ui \
     Wyszukiwarka.ui \
         mainwindow.ui
 
