@@ -140,12 +140,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Directory.cpp" />
+    <ClCompile Include="File.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="Url.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Directory.h" />
+    <ClInclude Include="File.h" />
     <ClInclude Include="Tree.h" />
     <ClInclude Include="Url.h" />
   </ItemGroup>

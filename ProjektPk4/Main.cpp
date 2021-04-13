@@ -1,27 +1,35 @@
 #include <iostream>
 #include <string>
-#include <vector>
 #include "Directory.h"
 #include "Tree.h"
 #include "Url.h"
+#include "File.h"
+
 
 void fillTree(Tree& newTree);
 void removeUrl(Tree& newTree);
 void removeDirectory(Tree& newTree);
 void updateUrl(Tree& newTree);
 void printTree(Tree& newTree);
+void writeFile(Tree& newTree, File& csv);
+void readAllFile(File& csv, Tree& newTree);
+
 
 int main()
 {
     Tree newTree;
+   
+    File csv("MyFile.csv");
 
     fillTree(newTree);
 
     printTree(newTree);
 
-    removeUrl(newTree);
+    //removeUrl(newTree);
 
     printTree(newTree);
+
+    writeFile(newTree, csv);
 
     updateUrl(newTree);
 
@@ -30,6 +38,9 @@ int main()
     removeDirectory(newTree);
 
     printTree(newTree);
+
+    readAllFile(csv, newTree);
+
 
     return 0;
 }
@@ -88,5 +99,44 @@ void printTree(Tree& newTree) {
     }
     else {
         cout << "No items to write" << endl;
+    }
+}
+
+void writeFile(Tree& newTree, File& csv)
+{
+    int size = newTree.getItems().size();
+    csv.endrow();
+    for (int i = 0; i < size; ++i) {
+        csv.write(newTree.getItems()[i].getName());
+        csv.write(newTree.getItems()[i].getDescription());
+        csv.endrow();
+        for (int c = 0; c < newTree.getItems()[i].getItems().size(); ++c) {
+            csv.write(newTree.getItems()[i].getItems()[c].getUrl());
+            csv.write(newTree.getItems()[i].getItems()[c].getDescription());
+            csv.write(newTree.getItems()[i].getItems()[c].getIcon());
+            csv.write(newTree.getItems()[i].getItems()[c].getId());
+            csv.endrow();
+        }
+    }
+}
+
+void readAllFile(File& csv, Tree& newTree)
+{
+    vector<vector<string>> one = csv.read();
+    for (int i = 0; i < one.size(); i++)
+    {
+        if (one[i].size() < 2)
+            cout << endl;
+        else if (one[i].size() == 2)
+            cout << "directory:  " << one[i][0] << " " << one[i][1] << endl;
+        else
+        {
+            cout << "URL: ";
+            for (int j = 0; j < one[i].size(); j++)
+            {
+                cout << one[i][j] << " ";
+            }
+            cout << endl;
+        }
     }
 }
