@@ -62,7 +62,7 @@ void Directory::removeUrl(string url) {
 	}
 	else {
 		cout << "not found URL to remove" << endl;
-	}	
+	}
 }
 
 void Directory::updateUrl(Url url) {

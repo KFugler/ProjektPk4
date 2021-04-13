@@ -5,7 +5,7 @@
 #include "Tree.h"
 #include "Url.h"
 
-void fillTree(Tree &newTree);
+void fillTree(Tree& newTree);
 void removeUrl(Tree& newTree);
 void removeDirectory(Tree& newTree);
 void updateUrl(Tree& newTree);
