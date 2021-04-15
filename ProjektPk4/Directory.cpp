@@ -1,4 +1,5 @@
 #include "Directory.h"
+#include "File.h"
 
 int Directory::ID = 0;
 
@@ -71,5 +72,24 @@ void Directory::updateUrl(Url url) {
 		if (items[i].getId() == url.getId()) {
 			items[i] = url;
 		}
+	}
+}
+
+void Directory::getWebsite(string url, string name)
+{
+	//Url url =  getUrlObjectByName(url);
+	bool exists = false;
+	for (Url u : items)
+	{
+		if (u.getUrl().compare(url) == 0)
+		{
+			exists = true;
+		}
+	}
+
+	if (!exists)
+	{
+		File file(name);
+		file.write("curl");
 	}
 }

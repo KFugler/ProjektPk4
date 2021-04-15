@@ -42,6 +42,8 @@ public:
 	void removeUrl(string);
 	void updateUrl(Url);
 
+	void getWebsite(string, string);
+
 	bool operator==(const Directory& obj) const
 	{
 		return (this->name.compare(obj.name) == 0);

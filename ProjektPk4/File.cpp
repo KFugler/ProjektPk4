@@ -45,6 +45,24 @@ vector<vector<string>>File::read()
 
 }
 
+bool File::compareFiles(string name)
+{
+	string lineA;
+	string lineB;
+	File file(name);
+	bool isEqual = true;
+
+	while (getline(file.is, lineA) && getline(is, lineB))
+	{
+		if (lineA != lineB)
+		{
+			isEqual = false;
+		}
+	}
+
+	return isEqual;
+}
+
 	/*void File::updateRow(string data)
 	{
 		string line;
