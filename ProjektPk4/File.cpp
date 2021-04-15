@@ -1,9 +1,6 @@
 #include "File.h"
 
-File::File()
-{
-	filename = "NewFile";
-}
+File::File() {}
 
 File::File(string name)
 {
@@ -14,20 +11,19 @@ File::File(string name)
 }
 
 File::~File()
-	{
-		fs.close();
-		is.close();
-	}
+{
+	fs.close();
+	is.close();
+}
 
 void File::endrow()
 {
 	fs << std::endl;
 	isfirst = true;
-};
+}
 
 vector<vector<string>>File::read()
 {
-
 	string line;
 	vector<vector<string>> values;
 	while (getline(is, line))
@@ -41,26 +37,7 @@ vector<vector<string>>File::read()
 		}
 		values.emplace_back(line_values);
 	}
-	return values;
-
-}
-
-bool File::compareFiles(string name)
-{
-	string lineA;
-	string lineB;
-	File file(name);
-	bool isEqual = true;
-
-	while (getline(file.is, lineA) && getline(is, lineB))
-	{
-		if (lineA != lineB)
-		{
-			isEqual = false;
-		}
-	}
-
-	return isEqual;
+	return values; 
 }
 
 	/*void File::updateRow(string data)
@@ -110,9 +87,5 @@ bool File::compareFiles(string name)
 			for (int k = 0; k < values[j].size(); k++)
 				this->write(values[j][k]);
 	}
-};
-
-
-	return values;
+	fs << val;
 }
-*/

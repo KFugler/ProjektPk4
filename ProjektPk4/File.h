@@ -1,4 +1,8 @@
 #pragma once
+
+#ifndef FILE_H
+#define FILE_H
+
 #include <iostream>
 #include <sstream>
 #include <vector>
@@ -17,22 +21,10 @@ public:
 	File(string name);
 	~File();
 
-	template<typename T>
-	File& write(const T& val)
-	{
-		if (!isfirst) {
-			fs << ";";
-		}
-		else {
-			isfirst = false;
-		}
-		fs << val;
-		return *this;
-	}
+	void write(string val);
+
 	void endrow();
 	vector<vector<string>> read();
-
-	bool compareFiles(string url);
 	
 	//void updateRow(string data);
 };

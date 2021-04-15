@@ -14,7 +14,7 @@ private:
 	int id;
 	string name;
 	string description;
-	vector<Url> items;
+	vector<Url> urls;
 
 	static int ID;
 public:
@@ -22,7 +22,7 @@ public:
 	Directory();
 
 	// Overload constructor
-	Directory(string, string);
+	Directory(string name, string description);
 
 	// Destructor
 	~Directory();
@@ -30,17 +30,17 @@ public:
 	string getName();
 	string getDescription();
 
-	vector<Url> getItems();
-	Url getUrlObjectByName(string);
+	vector<Url> getUrls();
+	Url getUrlObjectByName(string name);
 
 	int getId();
 
-	void setName(string);
-	void setDescription(string);
+	void setName(string name);
+	void setDescription(string description);
 
-	void addUrl(string, string, string);
-	void removeUrl(string);
-	void updateUrl(Url);
+	void addUrl(string url, string description, string icon, vector<string> tags);
+	void removeUrl(string url);
+	void updateUrl(Url obj);
 
 	void getWebsite(string, string);
 

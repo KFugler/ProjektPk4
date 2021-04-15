@@ -9,11 +9,17 @@ Url::Url() {
 	id = ID++;
 }
 
-Url::Url(string newUrl, string newDescription, string newIcon) {
+Url::Url(string newUrl, string newDescription, string newIcon, vector<string> tagsVector) {
 	url = newUrl;
 	description = newDescription;
 	icon = newIcon;
 	id = ID++;
+	int tagsSize = tagsVector.size();
+	if (tagsSize > 0) {
+		for (int i = 0; i < tagsSize; ++i) {
+			tags.addTag(tagsVector[i]);
+		}
+	}
 }
 
 Url::~Url() {}
@@ -34,6 +40,10 @@ int Url::getId() {
 	return id;
 }
 
+Tag Url::getTags() {
+	return tags;
+}
+
 void Url::setUrl(string newUrl) {
 	url = newUrl;
 }
@@ -44,4 +54,12 @@ void Url::setDescription(string newDescription) {
 
 void Url::setIcon(string newIcon) {
 	icon = newIcon;
+}
+
+void Url::removeTag(string value) {
+	tags.removeTag(value);
+}
+
+void Url::addTag(string value) {
+	tags.addTag(value);
 }

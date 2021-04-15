@@ -11,7 +11,7 @@ using namespace std;
 
 class Tree {
 private:
-	vector<Directory> items;
+	vector<Directory> directories;
 public:
 	// Default constructor
 	Tree();
@@ -19,7 +19,7 @@ public:
 	// Destructor
 	~Tree();
 
-	vector<Directory> getItems();
+	vector<Directory> getDirectories();
 	Directory getDirectoryObjectByName(string);
 
 	void addDirectory(string, string);

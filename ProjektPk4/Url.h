@@ -5,6 +5,7 @@
 
 #include <iostream>
 #include <vector>
+#include "Tag.h"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ private:
 	string url;
 	string description;
 	string icon;
+	Tag tags;
 
 	static int ID;
 public:
@@ -21,7 +23,7 @@ public:
 	Url();
 
 	// Overload constructor
-	Url(string, string, string);
+	Url(string url, string description, string icon, vector<string> tagsVector);
 
 	// Destructor
 	~Url();
@@ -29,15 +31,19 @@ public:
 	string getUrl();
 	string getDescription();
 	string getIcon();
+	Tag getTags();
 	int getId();
 
-	void setUrl(string);
-	void setDescription(string);
-	void setIcon(string);
+	void setUrl(string url);
+	void setDescription(string description);
+	void setIcon(string icon);
 
-	bool operator==(const Url& obj2) const
+	void removeTag(string value);
+	void addTag(string value);
+
+	bool operator==(const Url& obj) const
 	{
-		return (this->url.compare(obj2.url) == 0);
+		return (this->url.compare(obj.url) == 0);
 	}
 };
 

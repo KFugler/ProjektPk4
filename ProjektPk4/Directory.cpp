@@ -25,15 +25,15 @@ string Directory::getDescription() {
 	return description;
 }
 
-vector<Url> Directory::getItems() {
-	return items;
+vector<Url> Directory::getUrls() {
+	return urls;
 }
 
 Url Directory::getUrlObjectByName(string url) {
-	int size = items.size();
+	int size = urls.size();
 	for (int i = 0; i < size; ++i) {
-		if (items[i].getUrl() == url) {
-			return items[i];
+		if (urls[i].getUrl() == url) {
+			return urls[i];
 		}
 	}
 }
@@ -50,27 +50,27 @@ void Directory::setDescription(string newDescription) {
 	description = newDescription;
 }
 
-void Directory::addUrl(string url, string description, string icon) {
-	Url newUrl(url, description, icon);
-	items.push_back(newUrl);
+void Directory::addUrl(string url, string description, string icon, vector<string> tags) {
+	Url newUrl(url, description, icon, tags);
+	urls.push_back(newUrl);
 }
 
 void Directory::removeUrl(string url) {
-	auto item = find(items.begin(), items.end(), getUrlObjectByName(url));
-	if (item != items.end()) {
-		auto idx = distance(items.begin(), item);
-		items.erase(items.begin() + idx);
+	auto item = find(urls.begin(), urls.end(), getUrlObjectByName(url));
+	if (item != urls.end()) {
+		auto idx = distance(urls.begin(), item);
+		urls.erase(urls.begin() + idx);
 	}
 	else {
 		cout << "not found URL to remove" << endl;
 	}
 }
 
-void Directory::updateUrl(Url url) {
-	int size = items.size();
+void Directory::updateUrl(Url obj) {
+	int size = urls.size();
 	for (int i = 0; i < size; ++i) {
-		if (items[i].getId() == url.getId()) {
-			items[i] = url;
+		if (urls[i].getId() == obj.getId()) {
+			urls[i] = obj;
 		}
 	}
 }
