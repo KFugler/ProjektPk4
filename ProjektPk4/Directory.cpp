@@ -79,7 +79,7 @@ void Directory::getWebsite(string url, string name)
 {
 	//Url url =  getUrlObjectByName(url);
 	bool exists = false;
-	for (Url u : items)
+	for (Url u : urls)
 	{
 		if (u.getUrl().compare(url) == 0)
 		{

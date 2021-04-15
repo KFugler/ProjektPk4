@@ -40,52 +40,31 @@ vector<vector<string>>File::read()
 	return values; 
 }
 
-	/*void File::updateRow(string data)
-	{
-		string line;
-		vector<vector<string>> values;
-		vector<string> line_values_temp;
-		bool breaker = false;
-		while (getline(is, line))
-		{
-			string line_value;
-			vector<string> line_values;
-			stringstream ss(line);
-			while (getline(ss, line_value, ';'))
-			{
-				if (line_value == data)
-				{
-					line_values.push_back(line_value);
-					line_values_temp = line_values;
-					breaker = true;
-					break;
-				}
-				line_values.push_back(line_value);
-			}
-			if (breaker == true)
-				break;
-			values.emplace_back(line_values);
-
-		}
-		int val;
-		string newVal;
-		cout << "which value to change" << endl;
-		if (line_values_temp.size() < 2)
-			cout << "1 - directory name";
-		else if (line_values_temp.size() == 2)
-			cout << "1 - directory name, 2 - description";
-		else
-			cout << "0 - URL  1 - description  2 - icon  3 - ID";
-
-		cin >> val;
-		cout << endl << "naw value: ";
-		cin >> newVal;
-		line_values_temp[val] = newVal;
-		values.emplace_back(line_values_temp);
-
-		for (int j = 0; j < values.size(); j++)
-			for (int k = 0; k < values[j].size(); k++)
-				this->write(values[j][k]);
+void File::write(string val)
+{
+	if (!isfirst) {
+		fs << ";";
+	}
+	else {
+		isfirst = false;
 	}
 	fs << val;
+}
+
+bool File::compareFiles(string name)
+{
+	string lineA;
+	string lineB;
+	File file(name);
+	bool isEqual = true;
+
+	while (getline(file.is, lineA) && getline(is, lineB))
+	{
+		if (lineA != lineB)
+		{
+			isEqual = false;
+		}
+	}
+
+	return isEqual;
 }

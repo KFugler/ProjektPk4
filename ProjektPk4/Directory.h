@@ -42,7 +42,7 @@ public:
 	void removeUrl(string url);
 	void updateUrl(Url obj);
 
-	void getWebsite(string, string);
+	void getWebsite(string url, string name);
 
 	bool operator==(const Directory& obj) const
 	{

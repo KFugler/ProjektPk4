@@ -25,6 +25,6 @@ public:
 
 	void endrow();
 	vector<vector<string>> read();
-	
-	//void updateRow(string data);
+	void write(string value);
+	bool compareFiles(string url);
 };
