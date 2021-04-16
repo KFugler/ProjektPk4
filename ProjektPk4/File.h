@@ -21,10 +21,10 @@ public:
 	File(string name);
 	~File();
 
-	void write(string val);
-
 	void endrow();
 	vector<vector<string>> read();
 	void write(string value);
 	bool compareFiles(string url);
 };
+
+#endif
