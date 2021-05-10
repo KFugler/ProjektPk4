@@ -1,23 +1,21 @@
 #include "User.h"
 
-int User::userID = 0;
-
 User::User() {
+	userType = "user";
 	username = "defaultName";
 	password = "defaultPassword";
-	userId = userID++;
 }
 
 User::User(string newUsername, string newPassword) {
+	userType = "user";
 	username = newUsername;
 	password = newPassword;
-	userId = userID++;
 }
 
 User::~User() {}
 
-int User::getId() {
-	return userId;
+string User::getUserType() {
+	return userType;
 }
 
 string User::getUsername() {
@@ -28,8 +26,8 @@ string User::getPassword() {
 	return password;
 }
 
-void User::setId(int newId) {
-	userId = newId;
+void User::setUserType(string newUserType) {
+	userType = newUserType;
 }
 
 void User::setUsername(string newUsername) {

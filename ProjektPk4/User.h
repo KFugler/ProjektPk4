@@ -10,8 +10,7 @@ using namespace std;
 
 class User {
 private:
-	static int userID;
-	int userId;
+	string userType;
 	string username;
 	string password;
 public:
@@ -19,11 +18,11 @@ public:
 	User(string newUsername, string newPassword);
 	~User();
 
-	int getId();
+	string getUserType();
 	string getUsername();
 	string getPassword();
 
-	void setId(int newId);
+	void setUserType(string value);
 	void setUsername(string value);
 	void setPassword(string value);
 };

@@ -10,15 +10,15 @@ using namespace std;
 class UserList {
 private:
 	vector<User> userList;
+	int inputListSize = 0;
 public:
 	UserList();
 	~UserList();
 
 	vector<User> getUserList();
-
-	void updateUserList(vector<User> value);
-
-	void addUser(int id, string username, string password);
+	int getListSize();
+	void setListSize(int newSize);
+	void addUser(string userType, string username, string password);
 	void deleteUser(string username);
 };
 

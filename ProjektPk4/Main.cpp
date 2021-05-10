@@ -6,6 +6,9 @@
 #include "File.h"
 #include "Tag.h"
 #include "TreeFile.h"
+#include "User.h"
+#include "UserList.h"
+#include "UserFile.h"
 
 
 void removeUrl(Tree& newTree);
@@ -15,7 +18,7 @@ void printTree(Tree& newTree);
 
 int main()
 {
-    Tree newTree;
+    /*Tree newTree;
     TreeFile csv("MyFile.csv");
 
     csv.readTreeFile(newTree);
@@ -24,7 +27,20 @@ int main()
 
     updateUrl(newTree);
 
-    //csv.writeFile(newTree);
+    csv.writeFile(newTree);*/
+
+    //testy user
+    UserList newUserList;
+    UserFile userscsv("users.csv");
+    userscsv.readUserFile(newUserList);
+
+    newUserList.addUser("user", "username1", "password1");
+    newUserList.addUser("user", "username2", "password2");
+    newUserList.addUser("user", "username3", "password3");
+
+    /*newUserList.deleteUser("username2");*/
+
+    userscsv.writeUserFile(newUserList);
 
     return 0;
 }

@@ -146,6 +146,9 @@
     <ClCompile Include="Tree.cpp" />
     <ClCompile Include="TreeFile.cpp" />
     <ClCompile Include="Url.cpp" />
+    <ClCompile Include="User.cpp" />
+    <ClCompile Include="UserFile.cpp" />
+    <ClCompile Include="UserList.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Directory.h" />
@@ -154,6 +157,9 @@
     <ClInclude Include="Tree.h" />
     <ClInclude Include="TreeFile.h" />
     <ClInclude Include="Url.h" />
+    <ClInclude Include="User.h" />
+    <ClInclude Include="UserFile.h" />
+    <ClInclude Include="UserList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
