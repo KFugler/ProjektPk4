@@ -18,8 +18,9 @@ public:
 	vector<User> getUserList();
 	int getListSize();
 	void setListSize(int newSize);
-	void addUser(string userType, string username, string password);
-	void deleteUser(string username);
+	void addUser(string username, string password);
+	void registerUser(string username, string password);
+	void loginUser(string username, string password);
 };
 
 #endif

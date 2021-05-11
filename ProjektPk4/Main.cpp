@@ -29,16 +29,14 @@ int main()
 
     csv.writeFile(newTree);*/
 
+
     //testy user
     UserList newUserList;
     UserFile userscsv("users.csv");
     userscsv.readUserFile(newUserList);
 
-    newUserList.addUser("user", "username1", "password1");
-    newUserList.addUser("user", "username2", "password2");
-    newUserList.addUser("user", "username3", "password3");
-
-    /*newUserList.deleteUser("username2");*/
+    //newUserList.registerUser("user3", "password3");
+    newUserList.loginUser("user1", "password1");
 
     userscsv.writeUserFile(newUserList);
 

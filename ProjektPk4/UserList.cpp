@@ -16,18 +16,41 @@ void UserList::setListSize(int newSize) {
 	inputListSize = newSize;
 }
 
-void UserList::addUser(string newUserType, string newUsername, string newPassword) {
-	User newUser;
-	newUser.setUserType(newUserType);
-	newUser.setUsername(newUsername);
-	newUser.setPassword(newPassword);
-	userList.push_back(newUser);
+void UserList::addUser(string newUsername, string newPassword) {
+		User newUser;
+		newUser.setUsername(newUsername);
+		newUser.setPassword(newPassword);
+		userList.push_back(newUser);
 }
 
-//void UserList::deleteUser(string username) {
-//	for (int i = 0; i < userList.size(); i++) {
-//		if (userList[i].getUsername() == username) {
-//			userList.erase(userList.begin()+i);
-//		}
-//	}
-//}
+void UserList::registerUser(string newUsername, string newPassword) {
+	bool isUser = false;
+	for (int i = 0; i < userList.size(); i++) {
+		if (userList[i].getUsername() == newUsername) {
+			isUser = true;
+		}
+	}
+	if (isUser == false) {
+		addUser(newUsername, newPassword);
+	}
+	else {
+		cout << "Podany uzytkownik juz istnieje!" << endl;
+	}
+}
+
+void UserList::loginUser(string newUsername, string newPassword) {
+	bool isUser = false;
+	string user;
+	for (int i = 0; i < userList.size(); i++) {
+		if (userList[i].getUsername() == newUsername && userList[i].getPassword() == newPassword) {
+			isUser = true;
+			user = newUsername;
+		}
+	}
+	if (isUser == false) {
+		cout << "Niepoprawny uzytkownik lub haslo!" << endl;	
+	}
+	else {
+		cout << "Zalogowano poprawnie jako: " + user << endl;
+	}
+}
