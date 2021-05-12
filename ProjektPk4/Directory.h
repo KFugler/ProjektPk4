@@ -15,6 +15,7 @@ private:
 	string name;
 	string description;
 	vector<Url> urls;
+	vector<Directory> directories;		//struktura drzewa
 
 	static int ID;
 public:
@@ -30,17 +31,26 @@ public:
 	string getName();
 	string getDescription();
 
-	vector<Url> getUrls();
-	Url getUrlObjectByName(string name);
+		vector<Url> getUrls();
+		vector<Directory> getDirectories();
+		int getDirectoriesSize();
+		Url getUrlObjectByName(string name);
 
 	int getId();
 
 	void setName(string name);
 	void setDescription(string description);
+		void setUrls(vector<Url> newUrls);		
+		void setDirectories(vector<Directory> newDirectories);
+
 
 	void addUrl(string url, string description, string icon, vector<string> tags);
 	void removeUrl(string url);
 	void updateUrl(Url obj);
+
+		Directory getDirectoryObjectByName(string name);
+		void addDirectory(string, string);
+		void removeDirectory(string);
 
 	void getWebsite(string url, string name);
 

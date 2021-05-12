@@ -25,6 +25,8 @@ public:
 	void addDirectory(string, string);
 	void removeDirectory(string);
 	void updateDirectory(Directory);
+	Directory getFromWholeTree(string, Directory);
+
 };
 
 #endif

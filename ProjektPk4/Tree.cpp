@@ -33,11 +33,47 @@ void Tree::removeDirectory(string name) {
 	}
 }
 
-void Tree::updateDirectory(Directory dir) {
+/*void Tree::updateDirectory(Directory dir) {
 	int size = directories.size();
 	for (int i = 0; i < size; ++i) {
 		if (directories[i].getId() == dir.getId()) {
 			directories[i] = dir;
 		}
 	}
+}*/            //wersja poprzednia
+
+
+void Tree::updateDirectory(Directory dir) {
+	int size = directories.size();
+	for (int i = 0; i < size; ++i) {
+		if (directories[i].getName() == dir.getName())
+			directories[i] = dir;
+		vector<Directory> temp = directories[i].getDirectories();
+		for (int j = 0; j < temp.size(); j++)
+		{
+			if (temp[j].getName() == dir.getName())
+				directories[i] = dir;
+		}
+	}
+	/*auto temp = getFromWholeTree(dir.getName(), getDirectories()[0]);
+	getFromWholeTree(dir.getName(), getDirectories()[0]) = dir;				//do dopracowania z u¿yciem getFromWholeTree()
+	*/																		
+}
+
+Directory Tree::getFromWholeTree(string name, Directory dir)
+{
+	Directory temp;
+	if (dir.getName() == name)
+		return dir;
+	else
+	{
+		for (int i = 0; i < dir.getDirectories().size(); i++)
+		{
+
+			temp = dir.getDirectories()[i];
+			//a = dir.getDirectories().size();
+			return getFromWholeTree(name, temp);
+		}
+	}
+	return dir;
 }

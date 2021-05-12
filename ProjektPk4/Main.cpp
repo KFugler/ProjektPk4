@@ -15,10 +15,12 @@ void removeUrl(Tree& newTree);
 void removeDirectory(Tree& newTree);
 void updateUrl(Tree& newTree);
 void printTree(Tree& newTree);
+void addTreeScheme(Tree& newTree);
+Directory getFromTree(string name, Tree& newTree);
 
 int main()
 {
-    /*Tree newTree;
+    Tree newTree;
     TreeFile csv("MyFile.csv");
 
     csv.readTreeFile(newTree);
@@ -27,7 +29,9 @@ int main()
 
     updateUrl(newTree);
 
-    csv.writeFile(newTree);*/
+    addTreeScheme(newTree);
+
+   // csv.writeFile(newTree);
 
 
     //testy user
@@ -92,4 +96,33 @@ void printTree(Tree& newTree) {
     else {
         cout << "No items to write" << endl;
     }
+}
+
+void addTreeScheme(Tree& newTree)
+{
+    std::cout << endl;
+
+    Directory test = getFromTree("Ulubione", newTree);  //dodanie do directory "Ulubione" podfolderów by tworzyæ strukturê drzewa 
+    test.addDirectory("SPORT", "Strony sportowe");
+    test.addDirectory("WIADOMOSCI", "Strony informacyjne");
+
+    newTree.updateDirectory(test);
+    auto temp = getFromTree("Ulubione", newTree).getDirectories();
+    for (int i = 0; i < temp.size(); i++)
+    {
+        std::cout << temp[i].getName() << "  " << temp[i].getDescription() << std::endl;
+    }
+
+    Directory temp2 = getFromTree("SPORT", newTree);    //dodanie URLI do podfoldedru o nazwie SPORT
+    temp2.addUrl("www.sport.pl", "strona z wynikami meczow", "default icon", { "tag1","tag2" });
+    temp2.addUrl("www.meczyki.pl", "strona ze streamami", "default icon", { "tag3","tag4" });
+    newTree.updateDirectory(temp2);
+
+    std::cout << endl;
+}
+
+Directory getFromTree(string name, Tree& newTree) // ustawianie przeszukiwania drzewa od pierwszego elementu
+{
+    Directory dir = newTree.getDirectories()[0];
+    return newTree.getFromWholeTree(name, dir);
 }
