@@ -78,23 +78,26 @@ void MainWindow::fillUrls(QVector<Url> urls) {
 void MainWindow::on_deleteButton_clicked()
 {
     QModelIndexList selection = ui->tableWidget->selectionModel()->selectedRows();
-
-    for(int i=0; i < selection.count(); i++)
+    QVector<int> rowToDelete;
+    for(int i=0; i < selection.count(); ++i)
     {
         QModelIndex index = selection.at(i);
+        rowToDelete.push_back(index.row());
         QString id = ui->tableWidget->model()->data(ui->tableWidget->model()->index(index.row(),2)).toString();
         QString type = ui->tableWidget->model()->data(ui->tableWidget->model()->index(index.row(),3)).toString();
         if (type == "folder") {
             tree.removeDirectoryById(id.toInt());
-            ui->tableWidget->removeRow(index.row());
         } else {
             Directory dir = tree.getDirectoryObjectById(lastOpenedDirectoryId);
             if (dir.getUrls().size() > 0) {
                 dir.removeUrlById(id.toInt());
-                ui->tableWidget->removeRow(index.row());
                 tree.updateDirectory(dir);
             }
         }
+    }
+    sort(rowToDelete.rbegin(), rowToDelete.rend());
+    foreach(int row, rowToDelete) {
+        ui->tableWidget->removeRow(row);
     }
 }
 
