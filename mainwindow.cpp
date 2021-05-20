@@ -154,3 +154,34 @@ void MainWindow::on_addUrlButton_clicked()
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, new QTableWidgetItem(QString::number(addedUlr.getId())));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 3, new QTableWidgetItem("URL"));
 }
+
+void MainWindow::on_pushButton_clicked()
+{
+    for (int i = 0; i < ui->tableWidget->rowCount(); i++){
+        ui->tableWidget->removeRow(i);
+    }
+
+    int dirSize = tree.getDirectories().size();
+    QString searched = ui->lineEdit->text();
+
+    if (dirSize > 0) {
+        for (int i = 0; i < dirSize; ++i) {
+            QVector<Url> urls = tree.getDirectoryObjectById(i).getUrls();
+            int urlsSize = urls.size();
+
+            if (urlsSize > 0) {
+                for (int i = 0; i < urlsSize; ++i) {
+
+                    if(urls[i].getUrl().contains(searched)){
+                        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 0, new QTableWidgetItem(urls[i].getUrl()));
+                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, new QTableWidgetItem(urls[i].getDescription()));
+                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(QString::number(urls[i].getId())));
+                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 3, new QTableWidgetItem("URL"));
+                    }
+
+                }
+            }
+        }
+    }
+}
