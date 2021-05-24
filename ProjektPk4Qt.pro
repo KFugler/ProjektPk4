@@ -10,20 +10,27 @@ CONFIG += c++11
 
 SOURCES += \
     directory.cpp \
+    loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     tag.cpp \
     tree.cpp \
-    url.cpp
+    url.cpp \
+    user.cpp \
+    userlist.cpp
 
 HEADERS += \
     directory.h \
+    loginwindow.h \
     mainwindow.h \
     tag.h \
     tree.h \
-    url.h
+    url.h \
+    user.h \
+    userlist.h
 
 FORMS += \
+    loginwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.

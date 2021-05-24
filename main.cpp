@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "loginwindow.h"
 #include "tree.h"
 
 #include <QApplication>
@@ -9,7 +10,13 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
-    w.show();
-    return a.exec();
+    MainWindow m;
+    LoginWindow l;
+    if(l.exec() != QDialog::Accepted){
+        a.quit();
+    }else{
+        m.show();
+        a.exec();
+    }
+    return 0;
 }
