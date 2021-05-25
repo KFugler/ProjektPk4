@@ -7,31 +7,15 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    /*                                                                          // wczytanie danych do programu z pliku
+    /*                                                                                              // pisanie do pliku
+File output("C:\\Users\\Adam\\Desktop\\PROJEKT PK4 AKT\\ProjektPk4\\users.csv");                  // trzeba wpisać ścieżkę swojego pliku csv na sztywno
+output.endrow();
+output.write("newUser");
+output.write("sample");
+*/
+                                                                          // wczytanie danych do programu z pliku
     treeFile input(":/resources/Files/MyFile.csv");                             // przykładowy plik umieszczony w resources żeby każdemu się załadował
     input.readTreeFile(tree);
-
-                                                                                                      // pisanie do pliku
-    File output("C:\\Users\\Adam\\Desktop\\PROJEKT PK4 AKT\\ProjektPk4\\users.csv");                  // trzeba wpisać ścieżkę swojego pliku csv na sztywno
-    output.endrow();
-    output.write("newUser");
-    output.write("sample");
-    */
-
-    tree.addDirectory("Praca", "Katalog z pracy");
-    tree.addDirectory("Ulubione", "Katalog z ulubionymi");
-    tree.addDirectory("Dom", "Katalog z domu");
-    tree.addDirectory("Szkola", "Katalog ze szkoly");
-    QVector<QString> vector;
-    vector.append("tagTest");
-
-    Directory workDir = tree.getDirectoryObjectByIndex(0);
-    workDir.addUrl("www.onet.pl", "fajna strona", "icon", vector);
-    workDir.addUrl("www.wp.pl", "nie fajna strona", "icon", vector);
-
-    // pomyslec jak to zmienic aby za kazdym razem nie aktualizowac
-    tree.updateDirectory(workDir);
-
     fillDirectories();
 
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -56,11 +40,10 @@ void MainWindow::fillDirectories() {
 
     if (dirSize > 0) {
         for (int i = 0; i < dirSize; ++i) {
-            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 0, new QTableWidgetItem(tree.getDirectories()[i].getName()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, new QTableWidgetItem(tree.getDirectories()[i].getDescription()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(QString::number(tree.getDirectories()[i].getId())));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 3, new QTableWidgetItem("folder"));
+            QString name = tree.getDirectories()[i].getName();
+            QString description = tree.getDirectories()[i].getDescription();
+            QString id = QString::number(tree.getDirectories()[i].getId());
+            addItem(name, description, id, "folder");
         }
     }
 }
@@ -77,11 +60,10 @@ void MainWindow::fillUrls(QVector<Url> urls) {
 
     if (urlsSize > 0) {
         for (int i = 0; i < urlsSize; ++i) {
-            ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 0, new QTableWidgetItem(urls[i].getUrl()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, new QTableWidgetItem(urls[i].getDescription()));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(QString::number(urls[i].getId())));
-            ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 3, new QTableWidgetItem("URL"));
+            QString name = urls[i].getUrl();
+            QString description = urls[i].getDescription();
+            QString id = QString::number(urls[i].getId());
+            addItem(name, description, id, "URL");
         }
     }
 }
@@ -123,18 +105,37 @@ void MainWindow::on_addDirectoryButton_clicked()
 {
     tree.addDirectory("Nowy", "Opis katalogu");
     Directory dir = tree.getDirectoryObjectByIndex(tree.getDirectories().count() - 1);
-    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new QTableWidgetItem(dir.getName()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new QTableWidgetItem(dir.getDescription()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, new QTableWidgetItem(QString::number(dir.getId())));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 3, new QTableWidgetItem("folder"));
+
+    QString name = dir.getName();
+    QString description = dir.getDescription();
+    QString id = QString::number(dir.getId());
+    addItem(name, description, id, "folder");
 }
 
 void MainWindow::itemChanged(QTableWidgetItem *item)
 {
-//    qDebug() << item->row();
-//    qDebug() << item->text();
-//    qDebug() << item->column();
+//    QString id = ui->tableWidget->model()->data(ui->tableWidget->model()->index(item->row(),2)).toString();
+//    QString type = ui->tableWidget->model()->data(ui->tableWidget->model()->index(item->row(),3)).toString();
+//    if (!id.isEmpty() && !type.isEmpty()) {
+//        qDebug() << item->text();
+//        qDebug() << item->row();
+//        qDebug() << item->column();
+//        Directory dir = tree.getDirectoryObjectById(id.toInt());
+//        if (type == "folder") {
+//            if (item->column() == 0) {
+//                dir.setName(item->text());
+//            } else if (item->column() == 1) {
+//                dir.setDescription(item->text());
+//            }
+//            tree.updateDirectory(dir);
+    //    } else {
+    //        Directory dir = tree.getDirectoryObjectById(lastOpenedDirectoryId);
+    //        if (dir.getUrls().size() > 0) {
+    //            dir.removeUrlById(id.toInt());
+    //            tree.updateDirectory(dir);
+    //        }
+//        }
+//    }
 }
 
 void MainWindow::on_openDirectoryButton_clicked()
@@ -159,40 +160,42 @@ void MainWindow::on_addUrlButton_clicked()
     dir.addUrl("www.example.com", "website description", "icon", tags);
     tree.updateDirectory(dir);
     Url addedUlr = dir.getUrlObjectByIndex(dir.getUrls().count() - 1);
-    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new QTableWidgetItem(addedUlr.getUrl()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new QTableWidgetItem(addedUlr.getDescription()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, new QTableWidgetItem(QString::number(addedUlr.getId())));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 3, new QTableWidgetItem("URL"));
+
+    QString name = addedUlr.getUrl();
+    QString description = addedUlr.getDescription();
+    QString id = QString::number(addedUlr.getId());
+    addItem(name, description, id, "URL");
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_lineEdit_textChanged(const QString &text)
 {
-    for (int i = 0; i < ui->tableWidget->rowCount(); i++){
-        ui->tableWidget->removeRow(i);
-    }
-
-    int dirSize = tree.getDirectories().size();
-    QString searched = ui->lineEdit->text();
-
-    if (dirSize > 0) {
-        for (int i = 0; i < dirSize; ++i) {
-            QVector<Url> urls = tree.getDirectoryObjectById(i).getUrls();
-            int urlsSize = urls.size();
-
-            if (urlsSize > 0) {
-                for (int i = 0; i < urlsSize; ++i) {
-
-                    if(urls[i].getUrl().contains(searched)){
-                        ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 0, new QTableWidgetItem(urls[i].getUrl()));
-                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 1, new QTableWidgetItem(urls[i].getDescription()));
-                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 2, new QTableWidgetItem(QString::number(urls[i].getId())));
-                        ui->tableWidget->setItem(ui->tableWidget->rowCount() - 1, 3, new QTableWidgetItem("URL"));
-                    }
-
-                }
+    for( int i = 0; i < ui->tableWidget->rowCount(); ++i )
+    {
+        bool match = false;
+        for( int j = 0; j < ui->tableWidget->columnCount(); ++j )
+        {
+            QTableWidgetItem *item = ui->tableWidget->item( i, j );
+            if( item->text().contains(text) )
+            {
+                match = true;
+                break;
             }
         }
+        ui->tableWidget->setRowHidden( i, !match );
     }
+}
+
+void MainWindow::addItem(QString name, QString desc, QString id, QString type)
+{
+    // It's a hack to set not editable column but not good practise
+    QTableWidgetItem *itemId = new QTableWidgetItem(id);
+    QTableWidgetItem *itemType = new QTableWidgetItem(type);
+    itemId->setFlags(itemId->flags() ^ Qt::ItemIsEditable);
+    itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
+
+    ui->tableWidget->insertRow(ui->tableWidget->rowCount());
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new QTableWidgetItem(name));
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new QTableWidgetItem(desc));
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, itemId);
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 3, itemType);
 }

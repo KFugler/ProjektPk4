@@ -138,23 +138,38 @@
      <rect>
       <x>40</x>
       <y>10</y>
-      <width>281</width>
+      <width>601</width>
       <height>22</height>
      </rect>
     </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="placeholderText">
+     <string>Wpisz frazę...</string>
+    </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>360</x>
-      <y>10</y>
-      <width>93</width>
-      <height>28</height>
+      <x>650</x>
+      <y>490</y>
+      <width>151</width>
+      <height>80</height>
      </rect>
     </property>
-    <property name="text">
-     <string>Szukaj</string>
-    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_2">
+     <item>
+      <widget class="QPushButton" name="pushButton_2">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Zapisz</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
   </widget>
  </widget>
