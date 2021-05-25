@@ -7,6 +7,17 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
+    /*                                                                          // wczytanie danych do programu z pliku
+    treeFile input(":/resources/Files/MyFile.csv");                             // przykładowy plik umieszczony w resources żeby każdemu się załadował
+    input.readTreeFile(tree);
+
+                                                                                                      // pisanie do pliku
+    File output("C:\\Users\\Adam\\Desktop\\PROJEKT PK4 AKT\\ProjektPk4\\users.csv");                  // trzeba wpisać ścieżkę swojego pliku csv na sztywno
+    output.endrow();
+    output.write("newUser");
+    output.write("sample");
+    */
+
     tree.addDirectory("Praca", "Katalog z pracy");
     tree.addDirectory("Ulubione", "Katalog z ulubionymi");
     tree.addDirectory("Dom", "Katalog z domu");

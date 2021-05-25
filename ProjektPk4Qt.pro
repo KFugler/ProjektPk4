@@ -10,21 +10,25 @@ CONFIG += c++11
 
 SOURCES += \
     directory.cpp \
+    file.cpp \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
     tag.cpp \
     tree.cpp \
+    treefile.cpp \
     url.cpp \
     user.cpp \
     userlist.cpp
 
 HEADERS += \
     directory.h \
+    file.h \
     loginwindow.h \
     mainwindow.h \
     tag.h \
     tree.h \
+    treefile.h \
     url.h \
     user.h \
     userlist.h
@@ -37,3 +41,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    MyFile.qrc

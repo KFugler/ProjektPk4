@@ -22,6 +22,7 @@ public:
     Directory getDirectoryObjectByIndex(int index);
 
     void addDirectory(QString, QString);
+    void addDirectoryPreDone(Directory newDir);
     void removeDirectoryById(int id);
     void updateDirectory(Directory);
 };

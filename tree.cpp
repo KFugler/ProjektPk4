@@ -26,6 +26,12 @@ void Tree::addDirectory(QString name, QString description) {
     directories.push_back(newDirectory);
 }
 
+void Tree::addDirectoryPreDone(Directory newDir){
+
+    directories.push_back(newDir);
+}
+
+
 void Tree::removeDirectoryById(int id) {
     auto item = find(directories.begin(), directories.end(), getDirectoryObjectById(id));
     if (item != directories.end()) {
