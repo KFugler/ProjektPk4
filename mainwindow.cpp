@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent)
+MainWindow::MainWindow(QWidget *parent, QString currentUser)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -16,7 +16,7 @@ output.write("sample");
 */
                                                                           // wczytanie danych do programu z pliku
     treeFile input(":/resources/Files/MyFile.csv");                             // przykładowy plik umieszczony w resources żeby każdemu się załadował
-    input.readTreeFile(*tree);
+    input.readTreeFile(*tree, currentUser);
     fillDirectories();
 
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);

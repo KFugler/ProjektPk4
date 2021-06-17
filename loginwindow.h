@@ -5,6 +5,7 @@
 #include <QMessageBox>
 
 #include "userlist.h"
+#include "mainwindow.h"
 
 namespace Ui {
 class LoginWindow;
@@ -26,6 +27,7 @@ private slots:
 private:
     Ui::LoginWindow *ui;
     UserList users;
+    MainWindow *mainWindow;
 };
 
 #endif // LOGINWINDOW_H

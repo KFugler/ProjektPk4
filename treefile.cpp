@@ -3,7 +3,7 @@
 treeFile::treeFile(QString value) : File(value) {}
 treeFile::~treeFile(){}
 
-void treeFile::readTreeFile(Tree &tree)
+void treeFile::readTreeFile(Tree &tree, QString currentUser)
 {
     File input(":/resources/Files/MyFile.csv");
     QVector<QVector<QString>> readFile = input.read();

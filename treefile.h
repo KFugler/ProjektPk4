@@ -11,7 +11,7 @@ class treeFile: public File {
 public:
     treeFile(QString value);
     ~treeFile();
-    void readTreeFile(Tree& newTree);
+    void readTreeFile(Tree& newTree, QString currentUser);
     void writeFile(Tree& newTree);
 };
 
