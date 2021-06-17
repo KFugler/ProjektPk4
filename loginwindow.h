@@ -5,6 +5,7 @@
 #include <QMessageBox>
 
 #include "userlist.h"
+#include "userfile.h"
 #include "mainwindow.h"
 
 namespace Ui {
@@ -26,8 +27,9 @@ private slots:
 
 private:
     Ui::LoginWindow *ui;
-    UserList users;
+    UserList newUserList;
     MainWindow *mainWindow;
+    QString userFilePath;
 };
 
 #endif // LOGINWINDOW_H

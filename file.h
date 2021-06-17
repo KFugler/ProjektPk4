@@ -1,8 +1,6 @@
 #ifndef FILE_H
 #define FILE_H
 
-#endif // FILE_H
-
 #include <iostream>
 #include <QFile>
 #include <QTextStream>
@@ -25,3 +23,5 @@ public:
     void write(QString value);
     //bool compareFiles(QString url);
 };
+
+#endif // FILE_H

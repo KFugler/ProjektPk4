@@ -7,13 +7,6 @@ MainWindow::MainWindow(QWidget *parent, QString currentUser)
 {
     ui->setupUi(this);
     this->tree = new Tree();
-
-    /*                                                                                              // pisanie do pliku
-File output("C:\\Users\\Adam\\Desktop\\PROJEKT PK4 AKT\\ProjektPk4\\users.csv");                  // trzeba wpisać ścieżkę swojego pliku csv na sztywno
-output.endrow();
-output.write("newUser");
-output.write("sample");
-*/
                                                                           // wczytanie danych do programu z pliku
     treeFile input(":/resources/Files/MyFile.csv");                             // przykładowy plik umieszczony w resources żeby każdemu się załadował
     input.readTreeFile(*tree, currentUser);

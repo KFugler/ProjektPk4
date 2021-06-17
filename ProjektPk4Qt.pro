@@ -19,6 +19,7 @@ SOURCES += \
     treefile.cpp \
     url.cpp \
     user.cpp \
+    userfile.cpp \
     userlist.cpp \
     widgetitem.cpp
 
@@ -32,6 +33,7 @@ HEADERS += \
     treefile.h \
     url.h \
     user.h \
+    userfile.h \
     userlist.h \
     widgetitem.h
 

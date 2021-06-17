@@ -47,7 +47,11 @@
        </widget>
       </item>
       <item alignment="Qt::AlignRight">
-       <widget class="QLineEdit" name="lineEdit_password"/>
+       <widget class="QLineEdit" name="lineEdit_password">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+       </widget>
       </item>
      </layout>
     </item>
@@ -78,19 +82,6 @@
      </widget>
     </item>
    </layout>
-  </widget>
-  <widget class="QLabel" name="label_3">
-   <property name="geometry">
-    <rect>
-     <x>100</x>
-     <y>70</y>
-     <width>281</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Tymczasowe logowanie: admin, password</string>
-   </property>
   </widget>
  </widget>
  <resources/>

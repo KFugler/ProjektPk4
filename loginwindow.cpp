@@ -7,14 +7,15 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    users.addUser("admin", "password");
-    users.addUser("user1", "password1");
-    users.addUser("user2", "password2");
-    users.addUser("", "");
+    userFilePath = "C:/Users/Ollie/Desktop/ProjektPk4/users.csv";
+    UserFile newUserFile(userFilePath);
+    newUserFile.readUserFile(newUserList);
 }
 
 LoginWindow::~LoginWindow()
 {
+    UserFile newUserFile(userFilePath);
+    newUserFile.writeUserFile(newUserList);
     delete ui;
 }
 
@@ -23,7 +24,7 @@ void LoginWindow::on_pushButton_login_clicked()
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
 
-    QString user = users.loginUser(username, password);
+    QString user = newUserList.loginUser(username, password);
 
     if(user != "unknown"){
         this->close();
@@ -39,7 +40,7 @@ void LoginWindow::on_pushButton_register_clicked()
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
 
-    QString user = users.registerUser(username, password);
+    QString user = newUserList.registerUser(username, password);
 
     if(user != "invalid"){
         QMessageBox::warning(this, "Success!", "Successfully registered user: " + user);
