@@ -12,19 +12,15 @@ using namespace std;
 class Tree
 {
 private:
-    QVector<Directory> directories;
+    QVector<Directory*> directories;
 public:
     Tree();
     ~Tree();
 
-    QVector<Directory> getDirectories();
-    Directory getDirectoryObjectById(int id);
-    Directory getDirectoryObjectByIndex(int index);
+    QVector<Directory*> getDirectories();
 
-    void addDirectory(QString, QString);
-    void addDirectoryPreDone(Directory newDir);
-    void removeDirectoryById(int id);
-    void updateDirectory(Directory);
+    void addDirectory(Directory * newDir);
+    void removeDirectory(Directory * dir);
 };
 
 #endif // TREE_H

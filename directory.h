@@ -11,11 +11,9 @@ using namespace std;
 class Directory
 {
 private:
-    int id;
     QString name;
     QString description;
-    QVector<Url> urls;
-    static int ID;
+    QVector<Url*> urls;
 public:
     // Default constructor
     Directory();
@@ -29,18 +27,13 @@ public:
     QString getName();
     QString getDescription();
 
-    QVector<Url> getUrls();
-    Url getUrlObjectById(int id);
-    Url getUrlObjectByIndex(int index);
-
-    int getId();
+    QVector<Url*> getUrls();
 
     void setName(QString name);
     void setDescription(QString description);
 
-    void addUrl(QString url, QString description, QString icon, QVector<QString> tags);
-    void removeUrlById(int id);
-    void updateUrl(Url obj);
+    void addUrl(Url* newUrl);
+    void removeUrl(Url* url);
 
 //    void getWebsite(QString url, QString name);
 

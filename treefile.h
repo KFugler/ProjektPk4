@@ -11,7 +11,6 @@ class treeFile: public File {
 public:
     treeFile(QString value);
     ~treeFile();
-
     void readTreeFile(Tree& newTree);
     void writeFile(Tree& newTree);
 };

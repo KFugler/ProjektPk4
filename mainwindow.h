@@ -8,6 +8,7 @@
 
 #include "tree.h"
 #include "treefile.h"
+#include "widgetitem.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -20,10 +21,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-void selectionChanged (const QItemSelection & selected, const QItemSelection & deselected);
-void fillDirectories();
-void fillUrls(QVector<Url> urls);
-void addItem(QString name, QString desc, QString id, QString type);
+    void fillDirectories();
+    void fillUrls(QVector<Url*> urls);
+    void addDirectory(Directory* dir);
+    void addUrl(Url* url);
 private slots:
     void on_deleteButton_clicked();
     void selectionChanged();
@@ -41,7 +42,7 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
-    Tree tree;
-    int lastOpenedDirectoryId = -1;
+    Tree *tree;
+    Directory* lastOpenedDirectoryPtr;
 };
 #endif // MAINWINDOW_H

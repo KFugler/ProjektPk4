@@ -10,7 +10,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
     users.addUser("admin", "password");
     users.addUser("user1", "password1");
     users.addUser("user2", "password2");
-    users.addUser("user3", "password3");
+    users.addUser("", "");
 }
 
 LoginWindow::~LoginWindow()

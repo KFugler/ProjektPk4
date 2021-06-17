@@ -19,7 +19,8 @@ SOURCES += \
     treefile.cpp \
     url.cpp \
     user.cpp \
-    userlist.cpp
+    userlist.cpp \
+    widgetitem.cpp
 
 HEADERS += \
     directory.h \
@@ -31,7 +32,8 @@ HEADERS += \
     treefile.h \
     url.h \
     user.h \
-    userlist.h
+    userlist.h \
+    widgetitem.h
 
 FORMS += \
     loginwindow.ui \
