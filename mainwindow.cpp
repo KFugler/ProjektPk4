@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent, QString currentUser)
+MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUser)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent, QString currentUser)
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->tableWidget, SIGNAL(itemSelectionChanged()), this, SLOT(selectionChanged()));
     connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(itemChanged(QTableWidgetItem *)));
+    connect(ui->logoutButton, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui->logoutButton, SIGNAL(clicked()), loginWindow, SLOT(show()));
 }
 
 MainWindow::~MainWindow()
@@ -242,4 +244,9 @@ void MainWindow::addUrl(Url* url)
 
     itemType = nullptr;
     delete itemType;
+}
+
+void MainWindow::on_logoutButton_clicked()
+{
+
 }

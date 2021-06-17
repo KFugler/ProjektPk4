@@ -27,8 +27,8 @@ void LoginWindow::on_pushButton_login_clicked()
     QString user = newUserList.loginUser(username, password);
 
     if(user != "unknown"){
-        this->close();
-        mainWindow = new MainWindow(this, user);
+        this->hide();
+        mainWindow = new MainWindow(nullptr, this, user);
         mainWindow->show();
     }else{
         QMessageBox::warning(this, "Error!", "Invalid username or password!");
