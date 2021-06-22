@@ -47,6 +47,5 @@ private:
     Ui::MainWindow *ui;
     Tree *tree;
     Directory* lastOpenedDirectoryPtr;
-    treeFile* file;
 };
 #endif // MAINWINDOW_H
