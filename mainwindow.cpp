@@ -217,8 +217,7 @@ void MainWindow::on_lineEdit_textChanged(const QString &text)
 
 void MainWindow::addDirectory(Directory* dir)
 {
-    // It's a hack to set not editable column but not good practise
-    WidgetItem *itemType = new WidgetItem("folder");
+    WidgetItem *itemType = new WidgetItem();
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setDirectoryPtr(dir);
 
@@ -232,8 +231,7 @@ void MainWindow::addDirectory(Directory* dir)
 
 void MainWindow::addUrl(Url* url)
 {
-    // It's a hack to set not editable column but not good practise
-    WidgetItem *itemType = new WidgetItem("URL");
+    WidgetItem *itemType = new WidgetItem();
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setUrlPtr(url);
 
@@ -246,7 +244,8 @@ void MainWindow::addUrl(Url* url)
     delete itemType;
 }
 
-void MainWindow::on_logoutButton_clicked()
+void MainWindow::on_saveButton_clicked()
 {
-
+    file->writeFile(*tree);
+    QMessageBox::information(this, "Sukces!", "Pomyślnie zapisano dane");
 }

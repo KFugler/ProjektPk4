@@ -7,7 +7,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    userFilePath = "C:/Users/Adam/Desktop/PROJEKT PK4 AKT/ProjektPk4/users.csv";
+    userFilePath = "C:/Pk4Qt2/ProjektPk4/users.csv";
     UserFile newUserFile(userFilePath);
     newUserFile.readUserFile(newUserList);
 }
@@ -31,7 +31,7 @@ void LoginWindow::on_pushButton_login_clicked()
         mainWindow = new MainWindow(nullptr, this, user);
         mainWindow->show();
     }else{
-        QMessageBox::warning(this, "Error!", "Invalid username or password!");
+        QMessageBox::warning(this, "Błąd!", "Nieprawidłowy login lub hasło!");
     }
 }
 
@@ -43,8 +43,8 @@ void LoginWindow::on_pushButton_register_clicked()
     QString user = newUserList.registerUser(username, password);
 
     if(user != "invalid"){
-        QMessageBox::warning(this, "Success!", "Successfully registered user: " + user);
+        QMessageBox::information(this, "Sukces!", "Pomyślnie utworzono konto: " + user);
     }else{
-        QMessageBox::warning(this, "Error!", "User already exists!");
+        QMessageBox::warning(this, "Błąd!", "Użytkownik o podanym loginie istnieje!");
     }
 }
