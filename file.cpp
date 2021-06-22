@@ -6,7 +6,7 @@ File::File() {}
 File::File(QString name)
 {
     filename = name;
-    isfirst = false;
+    isfirst = true;
 }
 
 File::~File()
@@ -61,3 +61,4 @@ void File::write(QString value)         //pisanie na końcu pliku
     }
     outputFile.close();
 }
+

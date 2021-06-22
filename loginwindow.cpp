@@ -7,7 +7,7 @@ LoginWindow::LoginWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    userFilePath = "C:/Users/Ollie/Desktop/ProjektPk4/users.csv";
+    userFilePath = "C:/Users/Adam/Desktop/PROJEKT PK4 AKT/ProjektPk4/users.csv";
     UserFile newUserFile(userFilePath);
     newUserFile.readUserFile(newUserList);
 }

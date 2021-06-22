@@ -1,7 +1,13 @@
 #include "widgetitem.h"
 
 WidgetItem::WidgetItem() : QTableWidgetItem() {}
-WidgetItem::WidgetItem(const QString &text) : QTableWidgetItem(text) {}
+WidgetItem::WidgetItem(const QString text) : QTableWidgetItem(text) {}
+WidgetItem::~WidgetItem(){
+    dirPtr = nullptr;
+    urlPtr = nullptr;
+    delete dirPtr;
+    delete urlPtr;
+}
 
 void WidgetItem::setDirectoryPtr(Directory* pointer)
 {
@@ -21,4 +27,14 @@ Directory* WidgetItem::getDirectoryPtr()
 Url* WidgetItem::getUrlPtr()
 {
     return this->urlPtr;
+}
+
+void WidgetItem::setType(QString value)
+{
+    this->type = value;
+}
+
+QString WidgetItem::getType()
+{
+    return this->type;
 }

@@ -13,6 +13,9 @@ public:
     ~treeFile();
     void readTreeFile(Tree& newTree, QString currentUser);
     void writeFile(Tree& newTree);
+private:
+       QVector<QVector<QString>> readFile;
+       QString userName;
 };
 
 #endif // TREEFILE_H
