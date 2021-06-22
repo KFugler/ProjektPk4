@@ -6,10 +6,10 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->tree = new Tree();
-                                                                          // wczytanie danych do programu z pliku
-    treeFile input(":/resources/Files/MyFile.csv");                             // przykładowy plik umieszczony w resources żeby każdemu się załadował
-    input.readTreeFile(*tree, currentUser);
+    this->tree = new Tree();                                                                     
+    this->file = new treeFile(":/resources/Files/MyFile.csv");
+
+    file->readTreeFile(*tree, currentUser);
     fillDirectories();
 
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
 MainWindow::~MainWindow()
 {
     tree = nullptr;
+    file = nullptr;
+    delete file;
     delete tree;
     delete ui;
 }
@@ -29,7 +31,8 @@ MainWindow::~MainWindow()
 void MainWindow::fillDirectories() {
     int dirSize = tree->getDirectories().size();
 
-    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
+    ui->tableWidget->setSortingEnabled(false);
 
     ui->addUrlButton->setVisible(false);
     ui->addDirectoryButton->setVisible(true);
@@ -43,12 +46,14 @@ void MainWindow::fillDirectories() {
             addDirectory(tree->getDirectories()[i]);
         }
     }
+    ui->tableWidget->setSortingEnabled(true);
 }
 
 void MainWindow::fillUrls(QVector<Url*> urls) {
     int urlsSize = urls.size();
 
-    ui->tableWidget->setRowCount(0);
+    ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
+    ui->tableWidget->setSortingEnabled(false);
 
     ui->addUrlButton->setVisible(true);
     ui->addDirectoryButton->setVisible(false);
@@ -62,6 +67,7 @@ void MainWindow::fillUrls(QVector<Url*> urls) {
             addUrl(urls[i]);
         }
     }
+    ui->tableWidget->setSortingEnabled(true);
 }
 
 void MainWindow::on_deleteButton_clicked()
@@ -73,16 +79,15 @@ void MainWindow::on_deleteButton_clicked()
         QModelIndex index = selection.at(i);
         QTableWidgetItem* item = ui->tableWidget->item(index.row(), 2);
         WidgetItem* convertItem = dynamic_cast<WidgetItem*>(item);
-        QString type = ui->tableWidget->model()->data(ui->tableWidget->model()->index(index.row(),2)).toString();
 
         rowToDelete.push_back(index.row());
-        if (type == "folder") {
+        if (convertItem->getType() == "folder") {
             Directory* dir = convertItem->getDirectoryPtr();
             tree->removeDirectory(dir);
 
             dir = nullptr;
             delete dir;
-        } else if (type == "URL"){
+        } else if (convertItem->getType() == "URL"){
             Url* url = convertItem->getUrlPtr();
             lastOpenedDirectoryPtr->removeUrl(url);
 
@@ -134,14 +139,12 @@ void MainWindow::itemChanged(QTableWidgetItem *item)
     QModelIndexList selection = ui->tableWidget->selectionModel()->selectedRows();
 
     if (selection.count() > 0) {
-        QString type = ui->tableWidget->model()->data(ui->tableWidget->model()->index(item->row(),2)).toString();
-
         QTableWidgetItem *itemWithPointer = ui->tableWidget->item(item->row(), 2);
 
         WidgetItem * convertItem;
         convertItem = dynamic_cast<WidgetItem*>(itemWithPointer);
 
-        if (type == "folder") {
+        if (convertItem->getType() == "folder") {
             Directory* dirPtr = convertItem->getDirectoryPtr();
 
             if (item->column() == 0) {
@@ -151,7 +154,7 @@ void MainWindow::itemChanged(QTableWidgetItem *item)
             }
             dirPtr = nullptr;
             delete dirPtr;
-        } else if (type == "URL"){
+        } else if (convertItem->getType() == "URL"){
             Url* url = convertItem->getUrlPtr();
             if (item->column() == 0) {
                 url->setUrl(item->text());
@@ -218,13 +221,17 @@ void MainWindow::on_lineEdit_textChanged(const QString &text)
 void MainWindow::addDirectory(Directory* dir)
 {
     WidgetItem *itemType = new WidgetItem();
+
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setDirectoryPtr(dir);
+    itemType->setIcon(QIcon(":/icons/Files/directoryIcon.png"));
+    itemType->setType("folder");
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new WidgetItem(dir->getName()));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(dir->getDescription()));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, itemType);
+
     itemType = nullptr;
     delete itemType;
 }
@@ -232,8 +239,11 @@ void MainWindow::addDirectory(Directory* dir)
 void MainWindow::addUrl(Url* url)
 {
     WidgetItem *itemType = new WidgetItem();
+
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setUrlPtr(url);
+    itemType->setType("URL");
+    itemType->setIcon(QIcon(":/icons/Files/urlIcon.png"));
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new WidgetItem(url->getUrl()));

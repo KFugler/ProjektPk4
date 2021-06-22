@@ -157,7 +157,7 @@
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>450</y>
+      <y>490</y>
       <width>151</width>
       <height>101</height>
      </rect>
@@ -181,19 +181,6 @@
       </widget>
      </item>
     </layout>
-   </widget>
-   <widget class="QPushButton" name="logoutButton">
-    <property name="geometry">
-     <rect>
-      <x>650</x>
-      <y>550</y>
-      <width>149</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Wyloguj</string>
-    </property>
    </widget>
   </widget>
  </widget>
