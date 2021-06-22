@@ -1,27 +1,27 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent, QString currentUser)
+MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUser)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->tree = new Tree();                                                                     
-    this->file = new treeFile(":/resources/Files/MyFile.csv");
-
-    file->readTreeFile(*tree, currentUser);
+    this->tree = new Tree();
+                                                                          // wczytanie danych do programu z pliku
+    treeFile input(":/resources/Files/MyFile.csv");                             // przykładowy plik umieszczony w resources żeby każdemu się załadował
+    input.readTreeFile(*tree, currentUser);
     fillDirectories();
 
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->tableWidget, SIGNAL(itemSelectionChanged()), this, SLOT(selectionChanged()));
     connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(itemChanged(QTableWidgetItem *)));
+    connect(ui->logoutButton, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui->logoutButton, SIGNAL(clicked()), loginWindow, SLOT(show()));
 }
 
 MainWindow::~MainWindow()
 {
     tree = nullptr;
-    file = nullptr;
-    delete file;
     delete tree;
     delete ui;
 }
@@ -29,8 +29,7 @@ MainWindow::~MainWindow()
 void MainWindow::fillDirectories() {
     int dirSize = tree->getDirectories().size();
 
-    ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
-    ui->tableWidget->setSortingEnabled(false);
+    ui->tableWidget->setRowCount(0);
 
     ui->addUrlButton->setVisible(false);
     ui->addDirectoryButton->setVisible(true);
@@ -44,14 +43,12 @@ void MainWindow::fillDirectories() {
             addDirectory(tree->getDirectories()[i]);
         }
     }
-    ui->tableWidget->setSortingEnabled(true);
 }
 
 void MainWindow::fillUrls(QVector<Url*> urls) {
     int urlsSize = urls.size();
 
-    ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
-    ui->tableWidget->setSortingEnabled(false);
+    ui->tableWidget->setRowCount(0);
 
     ui->addUrlButton->setVisible(true);
     ui->addDirectoryButton->setVisible(false);
@@ -65,7 +62,6 @@ void MainWindow::fillUrls(QVector<Url*> urls) {
             addUrl(urls[i]);
         }
     }
-    ui->tableWidget->setSortingEnabled(true);
 }
 
 void MainWindow::on_deleteButton_clicked()
@@ -77,15 +73,16 @@ void MainWindow::on_deleteButton_clicked()
         QModelIndex index = selection.at(i);
         QTableWidgetItem* item = ui->tableWidget->item(index.row(), 2);
         WidgetItem* convertItem = dynamic_cast<WidgetItem*>(item);
+        QString type = ui->tableWidget->model()->data(ui->tableWidget->model()->index(index.row(),2)).toString();
 
         rowToDelete.push_back(index.row());
-        if (convertItem->getType() == "folder") {
+        if (type == "folder") {
             Directory* dir = convertItem->getDirectoryPtr();
             tree->removeDirectory(dir);
 
             dir = nullptr;
             delete dir;
-        } else if (convertItem->getType() == "URL"){
+        } else if (type == "URL"){
             Url* url = convertItem->getUrlPtr();
             lastOpenedDirectoryPtr->removeUrl(url);
 
@@ -137,12 +134,14 @@ void MainWindow::itemChanged(QTableWidgetItem *item)
     QModelIndexList selection = ui->tableWidget->selectionModel()->selectedRows();
 
     if (selection.count() > 0) {
+        QString type = ui->tableWidget->model()->data(ui->tableWidget->model()->index(item->row(),2)).toString();
+
         QTableWidgetItem *itemWithPointer = ui->tableWidget->item(item->row(), 2);
 
         WidgetItem * convertItem;
         convertItem = dynamic_cast<WidgetItem*>(itemWithPointer);
 
-        if (convertItem->getType() == "folder") {
+        if (type == "folder") {
             Directory* dirPtr = convertItem->getDirectoryPtr();
 
             if (item->column() == 0) {
@@ -152,7 +151,7 @@ void MainWindow::itemChanged(QTableWidgetItem *item)
             }
             dirPtr = nullptr;
             delete dirPtr;
-        } else if (convertItem->getType() == "URL"){
+        } else if (type == "URL"){
             Url* url = convertItem->getUrlPtr();
             if (item->column() == 0) {
                 url->setUrl(item->text());
@@ -219,11 +218,10 @@ void MainWindow::on_lineEdit_textChanged(const QString &text)
 void MainWindow::addDirectory(Directory* dir)
 {
     // It's a hack to set not editable column but not good practise
-    WidgetItem *itemType = new WidgetItem();
+    WidgetItem *itemType = new WidgetItem("folder");
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setDirectoryPtr(dir);
-    itemType->setIcon(QIcon(":/icons/Files/directoryIcon.png"));
-    itemType->setType("folder");
+
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new WidgetItem(dir->getName()));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(dir->getDescription()));
@@ -235,12 +233,10 @@ void MainWindow::addDirectory(Directory* dir)
 void MainWindow::addUrl(Url* url)
 {
     // It's a hack to set not editable column but not good practise
-    WidgetItem *itemType = new WidgetItem();
-
+    WidgetItem *itemType = new WidgetItem("URL");
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setUrlPtr(url);
-    itemType->setType("URL");
-    itemType->setIcon(QIcon(":/icons/Files/urlIcon.png"));
+
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new WidgetItem(url->getUrl()));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(url->getDescription()));
@@ -250,9 +246,7 @@ void MainWindow::addUrl(Url* url)
     delete itemType;
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_logoutButton_clicked()
 {
-    file->writeFile(*tree);
+
 }
-
-

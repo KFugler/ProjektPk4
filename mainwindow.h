@@ -19,7 +19,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr, QString currentUser = "unknown");
+    MainWindow(QWidget *parent = nullptr, QWidget *loginWindow = nullptr, QString currentUser = "unknown");
     ~MainWindow();
     void fillDirectories();
     void fillUrls(QVector<Url*> urls);
@@ -40,13 +40,11 @@ private slots:
 
     void on_lineEdit_textChanged(const QString &arg1);
 
-
-    void on_pushButton_2_clicked();
+    void on_logoutButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     Tree *tree;
     Directory* lastOpenedDirectoryPtr;
-    treeFile* file;
 };
 #endif // MAINWINDOW_H

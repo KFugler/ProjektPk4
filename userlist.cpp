@@ -40,10 +40,8 @@ QString UserList::registerUser(QString newUsername, QString newPassword) {
 }
 
 QString UserList::loginUser(QString newUsername, QString newPassword) {
-    bool isUser = false;
     for (int i = 0; i < userList.size(); i++) {
         if (userList[i].getUsername() == newUsername && userList[i].getPassword() == newPassword) {
-            isUser = true;
             return newUsername;
         }
     }
