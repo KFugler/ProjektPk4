@@ -1,4 +1,3 @@
-#include "mainwindow.h"
 #include "loginwindow.h"
 #include "tree.h"
 

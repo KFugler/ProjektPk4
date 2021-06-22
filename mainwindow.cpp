@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-MainWindow::MainWindow(QWidget *parent, QString currentUser)
+MainWindow::MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUser)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent, QString currentUser)
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->tableWidget, SIGNAL(itemSelectionChanged()), this, SLOT(selectionChanged()));
     connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(itemChanged(QTableWidgetItem *)));
+    connect(ui->logoutButton, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui->logoutButton, SIGNAL(clicked()), loginWindow, SLOT(show()));
 }
 
 MainWindow::~MainWindow()
@@ -218,7 +220,6 @@ void MainWindow::on_lineEdit_textChanged(const QString &text)
 
 void MainWindow::addDirectory(Directory* dir)
 {
-    // It's a hack to set not editable column but not good practise
     WidgetItem *itemType = new WidgetItem();
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setDirectoryPtr(dir);
@@ -234,7 +235,6 @@ void MainWindow::addDirectory(Directory* dir)
 
 void MainWindow::addUrl(Url* url)
 {
-    // It's a hack to set not editable column but not good practise
     WidgetItem *itemType = new WidgetItem();
 
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
@@ -250,9 +250,8 @@ void MainWindow::addUrl(Url* url)
     delete itemType;
 }
 
-void MainWindow::on_pushButton_2_clicked()
+void MainWindow::on_saveButton_clicked()
 {
     file->writeFile(*tree);
+    QMessageBox::information(this, "Sukces!", "Pomyślnie zapisano dane");
 }
-
-

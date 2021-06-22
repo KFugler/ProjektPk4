@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QTableWidgetItem>
+#include <QMessageBox>
 
 #include "tree.h"
 #include "treefile.h"
@@ -19,7 +20,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr, QString currentUser = "unknown");
+    MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUser);
     ~MainWindow();
     void fillDirectories();
     void fillUrls(QVector<Url*> urls);
@@ -40,8 +41,7 @@ private slots:
 
     void on_lineEdit_textChanged(const QString &arg1);
 
-
-    void on_pushButton_2_clicked();
+    void on_saveButton_clicked();
 
 private:
     Ui::MainWindow *ui;
