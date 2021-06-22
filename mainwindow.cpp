@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     connect(ui->tableWidget, SIGNAL(itemSelectionChanged()), this, SLOT(selectionChanged()));
     connect(ui->tableWidget, SIGNAL(itemChanged(QTableWidgetItem *)), this, SLOT(itemChanged(QTableWidgetItem *)));
-    connect(ui->logoutButton, SIGNAL(clicked()), this, SLOT(hide()));
+    connect(ui->logoutButton, SIGNAL(clicked()), this, SLOT(closeWindowTest()));
     connect(ui->logoutButton, SIGNAL(clicked()), loginWindow, SLOT(show()));
 }
 
@@ -267,3 +267,10 @@ void MainWindow::on_saveButton_clicked()
     file->writeFile(*tree);
     QMessageBox::information(this, "Sukces!", "Pomyślnie zapisano dane");
 }
+
+void MainWindow::closeWindowTest()
+{
+    setAttribute(Qt::WA_DeleteOnClose);
+    close();
+}
+

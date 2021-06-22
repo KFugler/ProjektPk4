@@ -6,16 +6,21 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    file = new UserFile(path);
+    newUserList = new UserList();
 
-    userFilePath = "C:/Users/Adam/Desktop/PROJEKT PK4 AKT/ProjektPk4/users.csv";
-    UserFile newUserFile(userFilePath);
-    newUserFile.readUserFile(newUserList);
+    file->readUserFile(newUserList);
 }
 
 LoginWindow::~LoginWindow()
 {
-    UserFile newUserFile(userFilePath);
-    newUserFile.writeUserFile(newUserList);
+    file->writeUserFile(newUserList);
+
+    file = nullptr;
+    newUserList = nullptr;
+    delete newUserList;
+    delete file;
+    delete mainWindow;
     delete ui;
 }
 
@@ -24,14 +29,14 @@ void LoginWindow::on_pushButton_login_clicked()
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
 
-    QString user = newUserList.loginUser(username, password);
+    QString user = newUserList->loginUser(username, password);
 
     if (user != "unknown") {
         this->hide();
         mainWindow = new MainWindow(nullptr, this, user);
         mainWindow->show();
     } else {
-         QMessageBox::warning(this, "Błąd!", "Nieprawidłowy login lub hasło!");
+        QMessageBox::warning(this, "Błąd!", "Nieprawidłowy login lub hasło!");
     }
 }
 
@@ -40,7 +45,7 @@ void LoginWindow::on_pushButton_register_clicked()
     QString username = ui->lineEdit_username->text();
     QString password = ui->lineEdit_password->text();
 
-    QString user = newUserList.registerUser(username, password);
+    QString user = newUserList->registerUser(username, password);
 
     if (user != "invalid") {
         QMessageBox::information(this, "Sukces!", "Pomyślnie utworzono konto: " + user);

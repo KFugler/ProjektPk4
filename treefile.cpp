@@ -5,7 +5,7 @@ treeFile::~treeFile(){}
 
 void treeFile::readTreeFile(Tree &tree, QString currentUser)
 {
-    File input("C:/Users/Adam/Desktop/PROJEKT PK4 AKT/ProjektPk4/MyFile.csv");
+    File input("C:/Pk4Qt3/ProjektPk4/MyFile.csv");
     readFile = input.read();
     userName = currentUser;
     Directory *dir;
@@ -34,7 +34,7 @@ void treeFile::readTreeFile(Tree &tree, QString currentUser)
 }
 
 void treeFile::writeFile(Tree &newTree) {
-    QString path = "C:/Users/Adam/Desktop/PROJEKT PK4 AKT/ProjektPk4/MyFile.csv";
+    QString path = "C:/Pk4Qt3/ProjektPk4/MyFile.csv";
     File output (path);
     QFile ClearFile (path);
     ClearFile.open(QIODevice::WriteOnly | QIODevice::Truncate);

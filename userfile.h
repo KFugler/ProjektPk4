@@ -12,8 +12,8 @@ public:
     UserFile(QString value);
     ~UserFile();
 
-    void readUserFile(UserList& newList);
-    void writeUserFile(UserList& newList);
+    void readUserFile(UserList* newList);
+    void writeUserFile(UserList* newList);
 };
 
 #endif // USERFILE_H

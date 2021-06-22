@@ -42,6 +42,8 @@ private slots:
     void on_lineEdit_textChanged(const QString &arg1);
 
     void on_saveButton_clicked();
+
+    void closeWindowTest();
 private:
     Ui::MainWindow *ui;
     Tree *tree;

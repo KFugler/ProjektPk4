@@ -27,9 +27,10 @@ private slots:
 
 private:
     Ui::LoginWindow *ui;
-    UserList newUserList;
+    UserList *newUserList;
     MainWindow *mainWindow;
-    QString userFilePath;
+    QString path = "C:/Pk4Qt3/ProjektPk4/users.csv";
+    UserFile *file;
 };
 
 #endif // LOGINWINDOW_H
