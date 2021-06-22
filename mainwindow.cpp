@@ -6,7 +6,7 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->tree = new Tree();                                                                     
+    this->tree = new Tree();
     this->file = new treeFile(":/resources/Files/MyFile.csv");
 
     file->readTreeFile(*tree, currentUser);
@@ -32,8 +32,6 @@ void MainWindow::fillDirectories() {
     int dirSize = tree->getDirectories().size();
 
     ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
-    ui->tableWidget->setSortingEnabled(false);
-
     ui->addUrlButton->setVisible(false);
     ui->addDirectoryButton->setVisible(true);
     ui->openDirectoryButton->setVisible(true);
@@ -46,14 +44,12 @@ void MainWindow::fillDirectories() {
             addDirectory(tree->getDirectories()[i]);
         }
     }
-    ui->tableWidget->setSortingEnabled(true);
 }
 
 void MainWindow::fillUrls(QVector<Url*> urls) {
     int urlsSize = urls.size();
 
     ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
-    ui->tableWidget->setSortingEnabled(false);
 
     ui->addUrlButton->setVisible(true);
     ui->addDirectoryButton->setVisible(false);
@@ -67,7 +63,6 @@ void MainWindow::fillUrls(QVector<Url*> urls) {
             addUrl(urls[i]);
         }
     }
-    ui->tableWidget->setSortingEnabled(true);
 }
 
 void MainWindow::on_deleteButton_clicked()
@@ -80,19 +75,21 @@ void MainWindow::on_deleteButton_clicked()
         QTableWidgetItem* item = ui->tableWidget->item(index.row(), 2);
         WidgetItem* convertItem = dynamic_cast<WidgetItem*>(item);
 
-        rowToDelete.push_back(index.row());
-        if (convertItem->getType() == "folder") {
-            Directory* dir = convertItem->getDirectoryPtr();
-            tree->removeDirectory(dir);
+        if (convertItem != NULL) {
+            rowToDelete.push_back(index.row());
+            if (convertItem->getType() == "folder") {
+                Directory* dir = convertItem->getDirectoryPtr();
+                tree->removeDirectory(dir);
 
-            dir = nullptr;
-            delete dir;
-        } else if (convertItem->getType() == "URL"){
-            Url* url = convertItem->getUrlPtr();
-            lastOpenedDirectoryPtr->removeUrl(url);
+                dir = nullptr;
+                delete dir;
+            } else if (convertItem->getType() == "URL"){
+                Url* url = convertItem->getUrlPtr();
+                lastOpenedDirectoryPtr->removeUrl(url);
 
-            url = nullptr;
-            delete url;
+                url = nullptr;
+                delete url;
+            }
         }
 
         convertItem = nullptr;
@@ -144,26 +141,29 @@ void MainWindow::itemChanged(QTableWidgetItem *item)
         WidgetItem * convertItem;
         convertItem = dynamic_cast<WidgetItem*>(itemWithPointer);
 
-        if (convertItem->getType() == "folder") {
-            Directory* dirPtr = convertItem->getDirectoryPtr();
+        if (convertItem != nullptr) {
+            if (convertItem->getType() == "folder") {
+                Directory* dirPtr = convertItem->getDirectoryPtr();
 
-            if (item->column() == 0) {
-                dirPtr->setName(item->text());
-            } else if (item->column() == 1) {
-                dirPtr->setDescription(item->text());
+                if (item->column() == 0) {
+                    dirPtr->setName(item->text());
+                } else if (item->column() == 1) {
+                    dirPtr->setDescription(item->text());
+                }
+                dirPtr = nullptr;
+                delete dirPtr;
+            } else if (convertItem->getType() == "URL"){
+                Url* url = convertItem->getUrlPtr();
+                if (item->column() == 0) {
+                    url->setUrl(item->text());
+                } else if (item->column() == 1) {
+                    url->setDescription(item->text());
+                }
+                url = nullptr;
+                delete url;
             }
-            dirPtr = nullptr;
-            delete dirPtr;
-        } else if (convertItem->getType() == "URL"){
-            Url* url = convertItem->getUrlPtr();
-            if (item->column() == 0) {
-                url->setUrl(item->text());
-            } else if (item->column() == 1) {
-                url->setDescription(item->text());
-            }
-            url = nullptr;
-            delete url;
         }
+
         itemWithPointer = nullptr;
         convertItem = nullptr;
 
@@ -180,17 +180,22 @@ void MainWindow::on_openDirectoryButton_clicked()
 
     WidgetItem * convertItem;
     convertItem = dynamic_cast<WidgetItem*>(item);
-    Directory* dirPtr = convertItem->getDirectoryPtr();
 
-    lastOpenedDirectoryPtr = dirPtr;
-    fillUrls(dirPtr->getUrls());
+    if (convertItem != NULL) {
+        Directory* dirPtr = convertItem->getDirectoryPtr();
+
+        lastOpenedDirectoryPtr = dirPtr;
+        fillUrls(dirPtr->getUrls());
+
+        dirPtr = nullptr;
+        delete dirPtr;
+    }
 
     item = nullptr;
     convertItem = nullptr;
-    dirPtr = nullptr;
+
     delete item;
     delete convertItem;
-    delete dirPtr;
 }
 
 void MainWindow::on_showDirectoriesButton_clicked()
@@ -220,6 +225,7 @@ void MainWindow::on_lineEdit_textChanged(const QString &text)
 
 void MainWindow::addDirectory(Directory* dir)
 {
+    ui->tableWidget->setSortingEnabled(false);
     WidgetItem *itemType = new WidgetItem();
 
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
@@ -231,13 +237,14 @@ void MainWindow::addDirectory(Directory* dir)
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new WidgetItem(dir->getName()));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(dir->getDescription()));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, itemType);
-
+    ui->tableWidget->setSortingEnabled(true);
     itemType = nullptr;
     delete itemType;
 }
 
 void MainWindow::addUrl(Url* url)
 {
+    ui->tableWidget->setSortingEnabled(false);
     WidgetItem *itemType = new WidgetItem();
 
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
@@ -250,6 +257,7 @@ void MainWindow::addUrl(Url* url)
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(url->getDescription()));
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, itemType);
 
+    ui->tableWidget->setSortingEnabled(true);
     itemType = nullptr;
     delete itemType;
 }
