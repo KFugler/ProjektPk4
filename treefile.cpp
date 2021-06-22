@@ -5,7 +5,7 @@ treeFile::~treeFile(){}
 
 void treeFile::readTreeFile(Tree &tree, QString currentUser)
 {
-    File input("C:/Pk4Qt3/ProjektPk4/MyFile.csv");
+    File input("C:/Users/Adam/Desktop/PROJEKT PK4 AKT/ProjektPk4/MyFile.csv");
     readFile = input.read();
     userName = currentUser;
     Directory *dir;
@@ -34,12 +34,12 @@ void treeFile::readTreeFile(Tree &tree, QString currentUser)
 }
 
 void treeFile::writeFile(Tree &newTree) {
-QString path = "C:/Pk4Qt3/ProjektPk4/MyFile.csv";
+QString path = "C:/Users/Adam/Desktop/PROJEKT PK4 AKT/ProjektPk4/MyFile.csv";
 File output (path);
 QFile ClearFile (path);
 ClearFile.open(QIODevice::WriteOnly | QIODevice::Truncate);
 ClearFile.close();
-
+bool userFound = false;
     for(int i=0; i < readFile.size() ; i++){
                                int ret = 0;
         if (readFile[i].size()==1 && readFile[i][0] == userName){
@@ -47,6 +47,7 @@ ClearFile.close();
         while (x< readFile.size() && readFile[x].size() != 1  ){
             x++;
         }
+            userFound = true;
             ret = x;
                     output.write(userName);
                     for (int j=0; j< newTree.getDirectories().size(); j++){
@@ -61,7 +62,7 @@ ClearFile.close();
                                 output.write("ikona.jpg");
                                 output.write("0");
                             }
-                    }
+                       }
                        i = ret;
                        if (ret == readFile.size())
                            return;
@@ -71,7 +72,29 @@ ClearFile.close();
                 output.write(readFile[i][l]);
                 }
                output.endrow();
-
             }
+          if (userFound == false){
+          writeNewUserData(newTree, output);
+          return;
         }
+      }
 
+
+
+void treeFile::writeNewUserData(Tree& newTree, File output)
+{
+    output.write(userName);
+    for (int j=0; j< newTree.getDirectories().size(); j++){
+        output.endrow();
+        output.write(newTree.getDirectories()[j]->getName());
+        output.write(newTree.getDirectories()[j]->getDescription());
+
+            for (int k=0; k<newTree.getDirectories()[j]->getUrls().size(); k++){
+                output.endrow();
+                output.write(newTree.getDirectories()[j]->getUrls()[k]->getUrl());
+                output.write(newTree.getDirectories()[j]->getUrls()[k]->getDescription());
+                output.write("ikona.jpg");
+                output.write("0");
+       }
+    }
+}

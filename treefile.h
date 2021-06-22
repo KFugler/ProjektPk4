@@ -13,6 +13,7 @@ public:
     ~treeFile();
     void readTreeFile(Tree& newTree, QString currentUser);
     void writeFile(Tree& newTree);
+    void writeNewUserData(Tree& newTree, File output);
 private:
        QVector<QVector<QString>> readFile;
        QString userName;
