@@ -34,13 +34,6 @@ public:
 
     void addUrl(Url* newUrl);
     void removeUrl(Url* url);
-
-//    void getWebsite(QString url, QString name);
-
-    bool operator==(const Directory& obj) const
-    {
-        return (this->name.compare(obj.name) == 0);
-    }
 };
 
 #endif // DIRECTORY_H

@@ -22,27 +22,25 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUser);
     ~MainWindow();
+
     void fillDirectories();
     void fillUrls(QVector<Url*> urls);
+
     void addDirectory(Directory* dir);
     void addUrl(Url* url);
+
 private slots:
     void on_deleteButton_clicked();
     void selectionChanged();
     void itemChanged(QTableWidgetItem *item);
 
     void on_addDirectoryButton_clicked();
-
     void on_openDirectoryButton_clicked();
-
     void on_showDirectoriesButton_clicked();
 
     void on_addUrlButton_clicked();
-
     void on_lineEdit_textChanged(const QString &arg1);
-
     void on_saveButton_clicked();
-
     void closeWindowTest();
 private:
     Ui::MainWindow *ui;

@@ -10,6 +10,9 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
     this->file = new treeFile(":/resources/Files/MyFile.csv");
 
     file->readTreeFile(*tree, currentUser);
+
+    ui->tableWidget->setColumnWidth(0, 30);
+
     fillDirectories();
 
     ui->tableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -23,6 +26,7 @@ MainWindow::~MainWindow()
 {
     tree = nullptr;
     file = nullptr;
+
     delete file;
     delete tree;
     delete ui;
@@ -30,6 +34,8 @@ MainWindow::~MainWindow()
 
 void MainWindow::fillDirectories() {
     int dirSize = tree->getDirectories().size();
+
+    ui->tableWidget->setColumnHidden(3, true);
 
     ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
     ui->addUrlButton->setVisible(false);
@@ -48,6 +54,8 @@ void MainWindow::fillDirectories() {
 
 void MainWindow::fillUrls(QVector<Url*> urls) {
     int urlsSize = urls.size();
+\
+    ui->tableWidget->setColumnHidden(3, false);
 
     ui->tableWidget->model()->removeRows(0, ui->tableWidget->model()->rowCount());
 
@@ -72,7 +80,7 @@ void MainWindow::on_deleteButton_clicked()
     for(int i=0; i < selection.count(); ++i)
     {
         QModelIndex index = selection.at(i);
-        QTableWidgetItem* item = ui->tableWidget->item(index.row(), 2);
+        QTableWidgetItem* item = ui->tableWidget->item(index.row(), 0);
         WidgetItem* convertItem = dynamic_cast<WidgetItem*>(item);
 
         if (convertItem != NULL) {
@@ -122,8 +130,7 @@ void MainWindow::on_addDirectoryButton_clicked()
 
 void MainWindow::on_addUrlButton_clicked()
 {
-    QVector<QString> tags;
-    Url* newUrl = new Url("www.example.com", "website description", tags);
+    Url* newUrl = new Url("www.example.com", "website description", "tutaj wpisz tagi");
     lastOpenedDirectoryPtr->addUrl(newUrl);
     addUrl(newUrl);
 
@@ -136,7 +143,7 @@ void MainWindow::itemChanged(QTableWidgetItem *item)
     QModelIndexList selection = ui->tableWidget->selectionModel()->selectedRows();
 
     if (selection.count() > 0) {
-        QTableWidgetItem *itemWithPointer = ui->tableWidget->item(item->row(), 2);
+        QTableWidgetItem *itemWithPointer = ui->tableWidget->item(item->row(), 0);
 
         WidgetItem * convertItem;
         convertItem = dynamic_cast<WidgetItem*>(itemWithPointer);
@@ -145,19 +152,27 @@ void MainWindow::itemChanged(QTableWidgetItem *item)
             if (convertItem->getType() == "folder") {
                 Directory* dirPtr = convertItem->getDirectoryPtr();
 
-                if (item->column() == 0) {
+                if (item->column() == 1) {
                     dirPtr->setName(item->text());
-                } else if (item->column() == 1) {
+                } else if (item->column() == 2) {
                     dirPtr->setDescription(item->text());
                 }
                 dirPtr = nullptr;
                 delete dirPtr;
             } else if (convertItem->getType() == "URL"){
                 Url* url = convertItem->getUrlPtr();
-                if (item->column() == 0) {
-                    url->setUrl(item->text());
-                } else if (item->column() == 1) {
-                    url->setDescription(item->text());
+                switch (item->column()) {
+                    case 1:
+                        url->setUrl(item->text());
+                        break;
+                    case 2:
+                        url->setDescription(item->text());
+                        break;
+                    case 3:
+                        url->setTag(item->text());
+                        break;
+                    default:
+                        break;
                 }
                 url = nullptr;
                 delete url;
@@ -176,7 +191,7 @@ void MainWindow::on_openDirectoryButton_clicked()
 {
     QModelIndexList selection = ui->tableWidget->selectionModel()->selectedRows();
     QModelIndex index = selection.at(0);
-    QTableWidgetItem *item = ui->tableWidget->item(index.row(), 2);
+    QTableWidgetItem *item = ui->tableWidget->item(index.row(), 0);
 
     WidgetItem * convertItem;
     convertItem = dynamic_cast<WidgetItem*>(item);
@@ -234,9 +249,9 @@ void MainWindow::addDirectory(Directory* dir)
     itemType->setType("folder");
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new WidgetItem(dir->getName()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(dir->getDescription()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, itemType);
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, itemType);
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(dir->getName()));
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, new WidgetItem(dir->getDescription()));
     ui->tableWidget->setSortingEnabled(true);
     itemType = nullptr;
     delete itemType;
@@ -253,9 +268,10 @@ void MainWindow::addUrl(Url* url)
     itemType->setIcon(QIcon(":/icons/Files/urlIcon.png"));
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, new WidgetItem(url->getUrl()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(url->getDescription()));
-    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, itemType);
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, itemType);
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 1, new WidgetItem(url->getUrl()));
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 2, new WidgetItem(url->getDescription()));
+    ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 3, new WidgetItem(url->getTags()));
 
     ui->tableWidget->setSortingEnabled(true);
     itemType = nullptr;
@@ -273,4 +289,3 @@ void MainWindow::closeWindowTest()
     setAttribute(Qt::WA_DeleteOnClose);
     close();
 }
-

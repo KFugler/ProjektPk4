@@ -1,8 +1,6 @@
 #ifndef URL_H
 #define URL_H
 
-#include "tag.h"
-
 #include <QString>
 #include <QVector>
 
@@ -13,27 +11,20 @@ class Url
 private:
     QString url;
     QString description;
-    Tag tags;
+    QString tags;
 
 public:
-    // Default constructor
     Url();
-
-    // Overload constructor
-    Url(QString url, QString description, QVector<QString> tagsVector);
-
-    // Destructor
+    Url(QString url, QString description, QString tags);
     ~Url();
 
     QString getUrl();
     QString getDescription();
-    Tag getTags();
+    QString getTags();
 
     void setUrl(QString url);
     void setDescription(QString description);
-
-    void removeTag(QString value);
-    void addTag(QString value);
+    void setTag(QString value);
 
     bool operator==(const Url& obj) const
     {

@@ -8,9 +8,7 @@
 #include "userfile.h"
 #include "mainwindow.h"
 
-namespace Ui {
-class LoginWindow;
-}
+namespace Ui {class LoginWindow;}
 
 class LoginWindow : public QDialog
 {

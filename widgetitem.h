@@ -9,6 +9,8 @@
 #include "directory.h"
 #include "url.h"
 
+using namespace std;
+
 class WidgetItem : public QTableWidgetItem
 {
 public:

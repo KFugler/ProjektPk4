@@ -1,19 +1,11 @@
 #include "url.h"
 
-Url::Url() {
-    url = "localhost";
-    description = "example Url";
-}
+Url::Url() {}
 
-Url::Url(QString newUrl, QString newDescription, QVector<QString> tagsVector) {
-    url = newUrl;
-    description = newDescription;
-    int tagsSize = tagsVector.size();
-    if (tagsSize > 0) {
-        for (int i = 0; i < tagsSize; ++i) {
-            tags.addTag(tagsVector[i]);
-        }
-    }
+Url::Url(QString urlValue, QString descriptionValue, QString tagsValue) {
+    url = urlValue;
+    description = descriptionValue;
+    tags = tagsValue;
 }
 
 Url::~Url() {}
@@ -26,22 +18,18 @@ QString Url::getDescription() {
     return description;
 }
 
-Tag Url::getTags() {
+QString Url::getTags() {
     return tags;
 }
 
-void Url::setUrl(QString newUrl) {
-    url = newUrl;
+void Url::setUrl(QString urlValue) {
+    url = urlValue;
 }
 
-void Url::setDescription(QString newDescription) {
-    description = newDescription;
+void Url::setDescription(QString descriptionValue) {
+    description = descriptionValue;
 }
 
-void Url::removeTag(QString value) {
-    tags.removeTag(value);
-}
-
-void Url::addTag(QString value) {
-    tags.addTag(value);
+void Url::setTag(QString value) {
+    tags = value;
 }

@@ -1,10 +1,6 @@
 #include "directory.h"
-//#include "file.h"
 
-Directory::Directory() {
-    name = "directory";
-    description = "example directory";
-}
+Directory::Directory() {}
 
 Directory::Directory(QString newName, QString newDescription) {
     name = newName;
@@ -44,23 +40,3 @@ void Directory::removeUrl(Url* url) {
         urls.erase(urls.begin() + idx);
     }
 }
-
-
-//void Directory::getWebsite(QString url, QString name)
-//{
-//    //Url url =  getUrlObjectByName(url);
-//    bool exists = false;
-//    for (Url u : urls)
-//    {
-//        if (u.getUrl().compare(url) == 0)
-//        {
-//            exists = true;
-//        }
-//    }
-
-//    if (!exists)
-//    {
-//        File file(name);
-//        file.write("curl");
-//    }
-//}

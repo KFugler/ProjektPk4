@@ -18,6 +18,8 @@ LoginWindow::~LoginWindow()
 
     file = nullptr;
     newUserList = nullptr;
+    mainWindow = nullptr;
+
     delete newUserList;
     delete file;
     delete mainWindow;

@@ -42,13 +42,13 @@
      <bool>true</bool>
     </property>
     <property name="columnCount">
-     <number>3</number>
+     <number>4</number>
     </property>
     <attribute name="horizontalHeaderMinimumSectionSize">
      <number>20</number>
     </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>180</number>
+     <number>120</number>
     </attribute>
     <attribute name="horizontalHeaderHighlightSections">
      <bool>false</bool>
@@ -56,6 +56,14 @@
     <attribute name="horizontalHeaderStretchLastSection">
      <bool>true</bool>
     </attribute>
+    <column>
+     <property name="text">
+      <string>Typ</string>
+     </property>
+     <property name="textAlignment">
+      <set>AlignCenter</set>
+     </property>
+    </column>
     <column>
      <property name="text">
       <string>Nazwa</string>
@@ -68,10 +76,7 @@
     </column>
     <column>
      <property name="text">
-      <string>Typ</string>
-     </property>
-     <property name="textAlignment">
-      <set>AlignCenter</set>
+      <string>Tagi</string>
      </property>
     </column>
    </widget>

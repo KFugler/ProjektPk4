@@ -21,7 +21,6 @@ public:
     void endrow();
     QVector<QVector<QString>> read();
     void write(QString value);
-    //bool compareFiles(QString url);
 };
 
 #endif // FILE_H

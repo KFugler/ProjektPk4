@@ -1,6 +1,5 @@
 #include "file.h"
 
-
 File::File() {}
 
 File::File(QString name)
@@ -9,10 +8,9 @@ File::File(QString name)
     isfirst = true;
 }
 
-File::~File()
-{}
+File::~File() {}
 
-void File::endrow()   //nowa linijka
+void File::endrow()
 {
    write("\n");
    isfirst = true;
@@ -21,7 +19,6 @@ void File::endrow()   //nowa linijka
 QVector<QVector<QString>>File::read()
 {
     QVector<QVector<QString>> values;
-
 
     QFile inputFile(filename);
     if (inputFile.open(QIODevice::ReadOnly))
@@ -40,10 +37,10 @@ QVector<QVector<QString>>File::read()
        }
        inputFile.close();
     }
-       return values;
+    return values;
 }
 
-void File::write(QString value)         //pisanie na końcu pliku
+void File::write(QString value)
 {
     QFile outputFile(filename);
     if (outputFile.open(QIODevice::WriteOnly | QIODevice::Append))
@@ -61,4 +58,3 @@ void File::write(QString value)         //pisanie na końcu pliku
     }
     outputFile.close();
 }
-

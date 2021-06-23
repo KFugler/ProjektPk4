@@ -14,7 +14,6 @@ SOURCES += \
     loginwindow.cpp \
     main.cpp \
     mainwindow.cpp \
-    tag.cpp \
     tree.cpp \
     treefile.cpp \
     url.cpp \
@@ -28,7 +27,6 @@ HEADERS += \
     file.h \
     loginwindow.h \
     mainwindow.h \
-    tag.h \
     tree.h \
     treefile.h \
     url.h \
