@@ -20,7 +20,6 @@ LoginWindow::~LoginWindow()
     newUserList = nullptr;
     delete newUserList;
     delete file;
-    delete mainWindow;
     delete ui;
 }
 
