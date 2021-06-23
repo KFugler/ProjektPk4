@@ -22,6 +22,7 @@ LoginWindow::~LoginWindow()
 
     delete newUserList;
     delete file;
+    delete mainWindow;
     delete ui;
 }
 
