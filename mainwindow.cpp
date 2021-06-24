@@ -6,10 +6,10 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->lineEdit->addAction(QIcon(":/icons/Files/search.png"), QLineEdit::LeadingPosition);
+    ui->lineEdit->addAction(QIcon(":/icons/icons/search.png"), QLineEdit::LeadingPosition);
 
     this->setWindowTitle("Katalog stron");
-    this->setWindowIcon(QIcon(":/icons/Files/catalogue.png"));
+    this->setWindowIcon(QIcon(":/icons/icons/catalogue.png"));
 
     this->tree = new Tree();
     this->file = new treeFile();
@@ -253,7 +253,7 @@ void MainWindow::addDirectory(Directory* dir)
 
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setDirectoryPtr(dir);
-    itemType->setIcon(QIcon(":/icons/Files/directoryIcon.png"));
+    itemType->setIcon(QIcon(":/icons/icons/directoryIcon.png"));
     itemType->setType("folder");
     itemType->setToolTip("folder");
 
@@ -274,7 +274,7 @@ void MainWindow::addUrl(Url* url)
     itemType->setFlags(itemType->flags() ^ Qt::ItemIsEditable);
     itemType->setUrlPtr(url);
     itemType->setType("URL");
-    itemType->setIcon(QIcon(":/icons/Files/urlIcon.png"));
+    itemType->setIcon(QIcon(":/icons/icons/urlIcon.png"));
     itemType->setToolTip("URL");
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());

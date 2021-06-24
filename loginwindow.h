@@ -28,7 +28,7 @@ private:
     Ui::LoginWindow *ui;
     UserList *newUserList;
     MainWindow *mainWindow;
-    QString path = "C:/Pk4Qt3/ProjektPk4/users.csv";
+    QString path = qApp->applicationDirPath() + "/_users.csv";
     UserFile *file;
 };
 

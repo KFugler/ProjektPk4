@@ -6,11 +6,11 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
-    ui->lineEdit_username->addAction(QIcon(":/icons/Files/user.png"), QLineEdit::LeadingPosition);
-    ui->lineEdit_password->addAction(QIcon(":/icons/Files/password.png"), QLineEdit::LeadingPosition);
+    ui->lineEdit_username->addAction(QIcon(":/icons/icons/user.png"), QLineEdit::LeadingPosition);
+    ui->lineEdit_password->addAction(QIcon(":/icons/icons/password.png"), QLineEdit::LeadingPosition);
 
     this->setWindowTitle("Logowanie");
-    this->setWindowIcon(QIcon(":/icons/Files/login.png"));
+    this->setWindowIcon(QIcon(":/icons/icons/login.png"));
 
     file = new UserFile(path);
     newUserList = new UserList();

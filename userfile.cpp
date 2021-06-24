@@ -14,8 +14,8 @@ void UserFile::readUserFile(UserList* newList) {
 
 void UserFile::writeUserFile(UserList* newList) {
     for (int i = newList->getListSize(); i < newList->getUserList().size(); ++i) {
-        this->endrow();
         this->write(newList->getUserList()[i].getUsername());
         this->write(newList->getUserList()[i].getPassword());
+        this->endrow();
     }
 }

@@ -16,7 +16,7 @@ public:
 private:
        QVector<QVector<QString>> readFile;
        QString userName;
-       QString path = "C:/Pk4Qt3/ProjektPk4/MyFile.csv";
+       QString path = qApp->applicationDirPath() + "/_directories.csv";
 };
 
 #endif // TREEFILE_H
