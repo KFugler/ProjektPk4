@@ -17,9 +17,9 @@
    <widget class="QTableWidget" name="tableWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>30</x>
       <y>40</y>
-      <width>601</width>
+      <width>591</width>
       <height>531</height>
      </rect>
     </property>
@@ -89,8 +89,8 @@
    <widget class="QWidget" name="verticalLayoutWidget">
     <property name="geometry">
      <rect>
-      <x>650</x>
-      <y>0</y>
+      <x>640</x>
+      <y>20</y>
       <width>151</width>
       <height>251</height>
      </rect>
@@ -146,14 +146,24 @@
        </property>
       </widget>
      </item>
+     <item>
+      <widget class="QPushButton" name="openInBrowser">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="text">
+        <string>Otwórz w przeglądarce</string>
+       </property>
+      </widget>
+     </item>
     </layout>
    </widget>
    <widget class="QLineEdit" name="lineEdit">
     <property name="geometry">
      <rect>
-      <x>40</x>
+      <x>30</x>
       <y>10</y>
-      <width>601</width>
+      <width>591</width>
       <height>22</height>
      </rect>
     </property>
@@ -163,11 +173,14 @@
     <property name="placeholderText">
      <string>Wpisz frazę...</string>
     </property>
+    <property name="clearButtonEnabled">
+     <bool>true</bool>
+    </property>
    </widget>
    <widget class="QWidget" name="verticalLayoutWidget_2">
     <property name="geometry">
      <rect>
-      <x>650</x>
+      <x>640</x>
       <y>480</y>
       <width>151</width>
       <height>111</height>

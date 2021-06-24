@@ -6,6 +6,8 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    ui->lineEdit->addAction(QIcon(":/icons/Files/search.png"), QLineEdit::LeadingPosition);
+
     this->setWindowTitle("Katalog stron");
     this->setWindowIcon(QIcon(":/icons/Files/catalogue.png"));
 
@@ -45,6 +47,7 @@ void MainWindow::fillDirectories() {
     ui->addDirectoryButton->setVisible(true);
     ui->openDirectoryButton->setVisible(true);
     ui->showDirectoriesButton->setVisible(false);
+    ui->openInBrowser->setVisible(false);
 
     if (dirSize > 0) {
         for (int i = 0; i < dirSize; ++i) {
@@ -66,6 +69,7 @@ void MainWindow::fillUrls(QVector<Url*> urls) {
     ui->addDirectoryButton->setVisible(false);
     ui->openDirectoryButton->setVisible(false);
     ui->showDirectoriesButton->setVisible(true);
+    ui->openInBrowser->setVisible(true);
 
     if (urlsSize > 0) {
         for (int i = 0; i < urlsSize; ++i) {
@@ -119,6 +123,7 @@ void MainWindow::selectionChanged()
     QModelIndexList selection = ui->tableWidget->selectionModel()->selectedRows();
     ui->deleteButton->setEnabled(selection.count() > 0);
     ui->openDirectoryButton->setEnabled(selection.count() == 1);
+    ui->openInBrowser->setEnabled(selection.count() == 1);
 }
 
 void MainWindow::on_addDirectoryButton_clicked()
@@ -229,7 +234,7 @@ void MainWindow::on_lineEdit_textChanged(const QString &text)
         for (int j = 0; j < ui->tableWidget->columnCount(); ++j)
         {
             QTableWidgetItem *item = ui->tableWidget->item(i, j);
-            if (item->text().contains(text))
+            if (item != NULL && item->text().contains(text))
             {
                 match = true;
                 break;
@@ -293,4 +298,25 @@ void MainWindow::closeWindowTest()
 {
     setAttribute(Qt::WA_DeleteOnClose);
     close();
+}
+
+void MainWindow::on_openInBrowser_clicked()
+{
+    QModelIndexList selection = ui->tableWidget->selectionModel()->selectedRows();
+    QModelIndex index = selection.at(0);
+    QTableWidgetItem* item = ui->tableWidget->item(index.row(), 0);
+    WidgetItem* convertItem = dynamic_cast<WidgetItem*>(item);
+
+    if (convertItem != NULL) {
+        Url* url = convertItem->getUrlPtr();
+        QDesktopServices::openUrl(url->getUrl());
+
+        url = nullptr;
+        delete url;
+    }
+
+    convertItem = nullptr;
+    item = nullptr;
+    delete convertItem;
+    delete item;
 }

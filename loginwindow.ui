@@ -25,6 +25,9 @@
    <layout class="QHBoxLayout" name="horizontalLayout_3">
     <item>
      <widget class="QPushButton" name="pushButton_login">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="text">
        <string>Zaloguj</string>
       </property>
@@ -51,13 +54,20 @@
    <layout class="QFormLayout" name="formLayout">
     <item row="0" column="0">
      <widget class="QLabel" name="loginLabel">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="text">
        <string>Login:</string>
       </property>
      </widget>
     </item>
     <item row="0" column="1">
-     <widget class="QLineEdit" name="lineEdit_username"/>
+     <widget class="QLineEdit" name="lineEdit_username">
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
+      </property>
+     </widget>
     </item>
     <item row="1" column="0">
      <widget class="QLabel" name="hasloLabel">
@@ -70,6 +80,9 @@
      <widget class="QLineEdit" name="lineEdit_password">
       <property name="echoMode">
        <enum>QLineEdit::Password</enum>
+      </property>
+      <property name="clearButtonEnabled">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -85,7 +98,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Aby utworzyć konto podaj login i hasło oraz kliknij Zarejestruj</string>
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Aby utworzyć konto podaj login i hasło oraz kliknij &lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Zarejestruj&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
    </property>
   </widget>
  </widget>

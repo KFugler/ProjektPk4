@@ -6,6 +6,8 @@
 #include <QLabel>
 #include <QTableWidgetItem>
 #include <QMessageBox>
+#include <QDesktopServices>
+#include <QUrl>
 
 #include "tree.h"
 #include "treefile.h"
@@ -42,6 +44,8 @@ private slots:
     void on_lineEdit_textChanged(const QString &arg1);
     void on_saveButton_clicked();
     void closeWindowTest();
+    void on_openInBrowser_clicked();
+
 private:
     Ui::MainWindow *ui;
     Tree *tree;

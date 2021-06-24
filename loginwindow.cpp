@@ -6,6 +6,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    ui->lineEdit_username->addAction(QIcon(":/icons/Files/user.png"), QLineEdit::LeadingPosition);
+    ui->lineEdit_password->addAction(QIcon(":/icons/Files/password.png"), QLineEdit::LeadingPosition);
+
     this->setWindowTitle("Logowanie");
     this->setWindowIcon(QIcon(":/icons/Files/login.png"));
 
@@ -13,6 +16,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     newUserList = new UserList();
 
     file->readUserFile(newUserList);
+
+    connect(ui->lineEdit_username, SIGNAL(textChanged(QString)), this, SLOT(validForm()));
+    connect(ui->lineEdit_password, SIGNAL(textChanged(QString)), this, SLOT(validForm()));
 }
 
 LoginWindow::~LoginWindow()
@@ -57,4 +63,9 @@ void LoginWindow::on_pushButton_register_clicked()
     } else {
         QMessageBox::warning(this, "Błąd!", "Użytkownik o podanym loginie istnieje!");
     }
+}
+
+void LoginWindow::validForm()
+{
+    ui->pushButton_login->setEnabled(!ui->lineEdit_username->text().isEmpty() && !ui->lineEdit_password->text().isEmpty());
 }

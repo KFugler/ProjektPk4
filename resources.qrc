@@ -4,5 +4,8 @@
         <file>Files/urlIcon.png</file>
         <file>Files/login.png</file>
         <file>Files/catalogue.png</file>
+        <file>Files/search.png</file>
+        <file>Files/user.png</file>
+        <file>Files/password.png</file>
     </qresource>
 </RCC>
