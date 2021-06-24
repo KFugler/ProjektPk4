@@ -21,11 +21,9 @@ QVector<QVector<QString>>File::read()
     QVector<QVector<QString>> values;
 
     QFile inputFile(filename);
-    if (inputFile.open(QIODevice::ReadOnly))
-    {
+    if (inputFile.open(QIODevice::ReadOnly)) {
        QTextStream in(&inputFile);
-       while (!in.atEnd())
-       {
+       while (!in.atEnd()) {
           QVector<QString> line_values;
           QString line = in.readLine();
           QRegularExpression rx (";");
@@ -43,15 +41,11 @@ QVector<QVector<QString>>File::read()
 void File::write(QString value)
 {
     QFile outputFile(filename);
-    if (outputFile.open(QIODevice::WriteOnly | QIODevice::Append))
-    {
-       QTextStream fs( &outputFile );
-       if (!isfirst && value!= "\n")
-        {
+    if (outputFile.open(QIODevice::WriteOnly | QIODevice::Append)) {
+       QTextStream fs(&outputFile);
+       if (!isfirst && value!= "\n") {
           fs << ";";
-        }
-       else
-       {
+       } else {
            isfirst = false;
        }
        fs << value;

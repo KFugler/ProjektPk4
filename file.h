@@ -6,7 +6,6 @@
 #include <QTextStream>
 #include <QRegularExpression>
 
-
 using namespace std;
 
 class File

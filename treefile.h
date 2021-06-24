@@ -8,7 +8,7 @@
 
 class treeFile: public File {
 public:
-    treeFile(QString value);
+    treeFile();
     ~treeFile();
     void readTreeFile(Tree& newTree, QString currentUser);
     void writeFile(Tree& newTree);
@@ -16,7 +16,7 @@ public:
 private:
        QVector<QVector<QString>> readFile;
        QString userName;
+       QString path = "C:/Pk4Qt3/ProjektPk4/MyFile.csv";
 };
 
 #endif // TREEFILE_H
-

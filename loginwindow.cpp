@@ -6,6 +6,9 @@ LoginWindow::LoginWindow(QWidget *parent) :
     ui(new Ui::LoginWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Logowanie");
+    this->setWindowIcon(QIcon(":/icons/Files/login.png"));
+
     file = new UserFile(path);
     newUserList = new UserList();
 

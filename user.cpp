@@ -1,9 +1,6 @@
 #include "user.h"
 
-User::User() {
-    username = "defaultName";
-    password = "defaultPassword";
-}
+User::User() {}
 
 User::User(QString newUsername, QString newPassword) {
     username = newUsername;

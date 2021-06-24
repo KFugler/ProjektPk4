@@ -6,8 +6,11 @@ MainWindow::MainWindow(QWidget *parent, QWidget *loginWindow, QString currentUse
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setWindowTitle("Katalog stron");
+    this->setWindowIcon(QIcon(":/icons/Files/catalogue.png"));
+
     this->tree = new Tree();
-    this->file = new treeFile(":/resources/Files/MyFile.csv");
+    this->file = new treeFile();
 
     file->readTreeFile(*tree, currentUser);
 
@@ -247,6 +250,7 @@ void MainWindow::addDirectory(Directory* dir)
     itemType->setDirectoryPtr(dir);
     itemType->setIcon(QIcon(":/icons/Files/directoryIcon.png"));
     itemType->setType("folder");
+    itemType->setToolTip("folder");
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, itemType);
@@ -266,6 +270,7 @@ void MainWindow::addUrl(Url* url)
     itemType->setUrlPtr(url);
     itemType->setType("URL");
     itemType->setIcon(QIcon(":/icons/Files/urlIcon.png"));
+    itemType->setToolTip("URL");
 
     ui->tableWidget->insertRow(ui->tableWidget->rowCount());
     ui->tableWidget->setItem(ui->tableWidget->rowCount() -1, 0, itemType);

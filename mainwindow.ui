@@ -23,14 +23,20 @@
       <height>531</height>
      </rect>
     </property>
+    <property name="toolTip">
+     <string/>
+    </property>
     <property name="layoutDirection">
      <enum>Qt::LeftToRight</enum>
     </property>
     <property name="autoFillBackground">
      <bool>false</bool>
     </property>
-    <property name="horizontalScrollBarPolicy">
+    <property name="verticalScrollBarPolicy">
      <enum>Qt::ScrollBarAsNeeded</enum>
+    </property>
+    <property name="horizontalScrollBarPolicy">
+     <enum>Qt::ScrollBarAlwaysOff</enum>
     </property>
     <property name="showGrid">
      <bool>true</bool>
@@ -48,7 +54,7 @@
      <number>20</number>
     </attribute>
     <attribute name="horizontalHeaderDefaultSectionSize">
-     <number>120</number>
+     <number>160</number>
     </attribute>
     <attribute name="horizontalHeaderHighlightSections">
      <bool>false</bool>
@@ -84,7 +90,7 @@
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>20</y>
+      <y>0</y>
       <width>151</width>
       <height>251</height>
      </rect>
@@ -162,9 +168,9 @@
     <property name="geometry">
      <rect>
       <x>650</x>
-      <y>490</y>
+      <y>480</y>
       <width>151</width>
-      <height>101</height>
+      <height>111</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">

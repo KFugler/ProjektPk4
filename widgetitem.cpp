@@ -1,7 +1,9 @@
 #include "widgetitem.h"
 
 WidgetItem::WidgetItem() : QTableWidgetItem() {}
-WidgetItem::WidgetItem(const QString text) : QTableWidgetItem(text) {}
+WidgetItem::WidgetItem(const QString text) : QTableWidgetItem(text) {
+    this->setToolTip(text);
+}
 WidgetItem::~WidgetItem(){
     dirPtr = nullptr;
     urlPtr = nullptr;

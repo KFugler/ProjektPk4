@@ -2,5 +2,7 @@
     <qresource prefix="/icons">
         <file>Files/directoryIcon.png</file>
         <file>Files/urlIcon.png</file>
+        <file>Files/login.png</file>
+        <file>Files/catalogue.png</file>
     </qresource>
 </RCC>
